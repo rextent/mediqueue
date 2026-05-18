@@ -13,7 +13,7 @@ export default function TutorCard({ tutor }) {
           alt={tutor.name}
           width={500}
           height={400}
-          className="h-[280px] w-full object-cover transition duration-500 group-hover:scale-105"
+          className="h-[280px] w-full object-cover object-top transition duration-500 group-hover:scale-105"
         />
 
         {/* SUBJECT */}

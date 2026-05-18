@@ -13,7 +13,7 @@ export default function Hero() {
 
       <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-cyan-200/40 blur-3xl"></div>
 
-      <div className="container-width grid min-h-[90vh] items-center gap-14 py-20 lg:grid-cols-2">
+      <div className="container-width grid min-h-[80vh] items-center gap-14 py-20 lg:grid-cols-2">
         
         {/* LEFT CONTENT */}
         <motion.div
@@ -25,13 +25,13 @@ export default function Hero() {
             🎓 Smart Tutor Booking Platform
           </div>
 
-          <h1 className="font-heading text-5xl font-extrabold leading-tight text-slate-900 lg:text-6xl">
-            Find Your Perfect
+          <h1 className="font-heading text-4xl font-extrabold leading-tight text-slate-900 lg:text-5xl">
+            Find Your Perfect <br />
             <span className="bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
               {" "}
               Tutor{" "}
             </span>
-            And Book Sessions Easily
+            And Book <br /> Sessions
           </h1>
 
           <p className="mt-6 max-w-xl text-lg leading-8 text-gray-600">

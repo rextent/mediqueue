@@ -8,7 +8,7 @@ import {
 
 export default function Footer() {
   return (
-    <footer className="mt-20 border-t border-base-200 bg-slate-50">
+    <footer className="mt-20  bg-slate-50">
       <div className="container-width grid gap-10 py-16 md:grid-cols-2 lg:grid-cols-4">
         
         {/* LOGO & DESCRIPTION */}

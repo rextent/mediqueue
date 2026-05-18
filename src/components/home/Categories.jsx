@@ -63,7 +63,7 @@ const categories = [
 
 export default function Categories() {
   return (
-    <section className="bg-white py-24">
+    <section className="bg-white py-20">
       <div className="container-width">
         
         {/* HEADER */}
@@ -96,7 +96,7 @@ export default function Categories() {
                 delay: index * 0.1,
               }}
               viewport={{ once: true }}
-              className="group relative overflow-hidden rounded-[30px] border border-gray-100 bg-white p-8 shadow-lg transition duration-300 hover:-translate-y-2 hover:shadow-2xl"
+              className="group relative overflow-hidden rounded-[30px] border border-gray-100 bg-white p-6 shadow-lg transition duration-300 hover:-translate-y-2 hover:shadow-2xl"
             >
               
               {/* BACKGROUND GLOW */}

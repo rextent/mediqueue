@@ -9,7 +9,7 @@ const tutors = [
     experience: "5 Years Experience",
     price: 25,
     image:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
+      "/sarah.png",
   },
 
   {
@@ -19,7 +19,7 @@ const tutors = [
     experience: "7 Years Experience",
     price: 30,
     image:
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e",
+      "/david.png",
   },
 
   {
@@ -29,7 +29,7 @@ const tutors = [
     experience: "4 Years Experience",
     price: 22,
     image:
-      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80",
+      "/emily.png",
   },
   {
   id: 4,
@@ -37,7 +37,7 @@ const tutors = [
   subject: "Biology",
   experience: "6 Years Experience",
   price: 28,
-  image: "/default-tutor.png",
+  image: "/michael.png",
 },
 
 {
@@ -46,7 +46,7 @@ const tutors = [
   subject: "English",
   experience: "3 Years Experience",
   price: 20,
-  image: "/default-tutor.png",
+  image: "/sophia.png",
 },
 
 {
@@ -55,13 +55,13 @@ const tutors = [
   subject: "ICT",
   experience: "8 Years Experience",
   price: 35,
-  image: "/default-tutor.png",
+  image: "/james.png",
 },
 ];
 
 export default function FeaturedTutors() {
   return (
-    <section className="bg-white py-24">
+    <section className="bg-white py-20">
       <div className="container-width">
         
         <SectionTitle

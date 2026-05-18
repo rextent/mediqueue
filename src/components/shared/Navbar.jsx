@@ -29,7 +29,7 @@ export default function AppNavbar() {
   );
 
   return (
-    <div className="sticky top-0 z-50 border-b border-base-200 bg-white/80 backdrop-blur-lg">
+    <div className="sticky top-0 z-50  bg-white/80 backdrop-blur-lg">
       <div className="navbar container-width py-2">
         
         {/* LEFT */}
