@@ -10,14 +10,14 @@ import AppNavbar from "@/components/shared/Navbar";
 export default function Home() {
   return (
     <div>
-      <AppNavbar />
+      
       <Hero/>
       <FeaturedTutors/>
       <WhyChooseUs/>
       <Categories/>
       <Testimonials/>
       <FinalCTA/>
-      <Footer></Footer>
+      
     </div>
   );
 }
