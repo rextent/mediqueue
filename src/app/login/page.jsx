@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 
 import { authClient } from "@/lib/auth-client";
 
+
 export default function LoginPage() {
 
   const [email, setEmail] =
@@ -38,7 +39,7 @@ export default function LoginPage() {
           email,
           password,
 
-          callbackURL:"/"
+          callbackURL: window.location.origin
 
         });
 
@@ -88,7 +89,7 @@ export default function LoginPage() {
 
           provider: "google",
 
-          callbackURL:"/",
+          callbackURL: window.location.origin,
 
         });
 
