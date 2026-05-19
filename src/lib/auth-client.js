@@ -3,7 +3,7 @@ import { createAuthClient } from "better-auth/react";
 export const authClient =
 createAuthClient({
     baseURL:
-        "http://localhost:5000",
+        "https://mediqueue-server-f.vercel.app",
 
     fetchOptions: {
         credentials: "include",
