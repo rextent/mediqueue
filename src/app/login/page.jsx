@@ -88,8 +88,7 @@ export default function LoginPage() {
 
           provider: "google",
 
-          callbackURL:
-            window.location.origin,
+          callbackURL:"/",
 
         });
 
