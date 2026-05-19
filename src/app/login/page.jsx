@@ -1,5 +1,7 @@
 "use client";
 
+import axios from "axios";
+
 import Link from "next/link";
 
 import { useState } from "react";
@@ -42,6 +44,20 @@ export default function LoginPage() {
         });
 
       console.log(result);
+
+      // JWT TOKEN CREATE
+      await axios.post(
+
+        "http://localhost:5000/jwt",
+
+        {
+          email,
+        },
+
+        {
+          withCredentials: true,
+        }
+      );
 
       toast.success(
         "Login successful!"

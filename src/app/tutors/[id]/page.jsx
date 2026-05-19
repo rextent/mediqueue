@@ -1,16 +1,23 @@
 "use client";
 
 import { use } from "react";
-import { useEffect, useState } from "react";
+
+import {
+    useEffect,
+    useState,
+} from "react";
 
 import axios from "axios";
 
 import Image from "next/image";
+import { toast } from "react-toastify";
+
+
 
 import { authClient } from "@/lib/auth-client";
 
 const TutorDetailsPage = ({
-    params
+    params,
 }) => {
 
     const resolvedParams =
@@ -30,6 +37,17 @@ const TutorDetailsPage = ({
 
     const [alreadyBooked, setAlreadyBooked] =
         useState(false);
+
+    const [isOpen, setIsOpen] =
+        useState(false);
+
+    const [phone, setPhone] =
+        useState("");
+
+    const [studentName, setStudentName] =
+        useState(
+            session?.user?.name || ""
+        );
 
     // FETCH TUTOR
     useEffect(() => {
@@ -64,12 +82,17 @@ const TutorDetailsPage = ({
 
     }, [id]);
 
+    // CHECK ALREADY BOOKED
     useEffect(() => {
 
         const checkBooking =
             async () => {
 
-                if (!session?.user || !tutor?._id) {
+                if (
+                    !session?.user ||
+                    !tutor?._id
+                ) {
+
                     return;
                 }
 
@@ -98,11 +121,9 @@ const TutorDetailsPage = ({
 
     }, [session, tutor]);
 
-    // BOOK SESSION
+    // HANDLE BOOKING
     const handleBooking =
         async () => {
-
-            console.log("clicked");
 
             if (!session?.user) {
 
@@ -113,58 +134,90 @@ const TutorDetailsPage = ({
                 return;
             }
 
-            const bookingData = {
-
-                tutorId:
-                    tutor._id,
-
-                tutorName:
-                    tutor.tutorName,
-
-                tutorImage:
-                    tutor.photo,
-
-                subject:
-                    tutor.category,
-
-                hourlyFee:
-                    tutor.hourlyFee,
-
-                studentEmail:
-                    session.user.email,
-
-                studentName:
-                    session.user.name,
-
-                bookedAt:
-                    new Date(),
-
-            };
-
             try {
+
+                const bookingData = {
+
+                    tutorId:
+                        tutor._id,
+
+                    tutorName:
+                        tutor.tutorName,
+
+                    tutorImage:
+                        tutor.photo,
+
+                    subject:
+                        tutor.category,
+
+                    hourlyFee:
+                        tutor.hourlyFee,
+
+                    studentName:
+                        session.user.name,
+
+                    studentEmail:
+                        session.user.email,
+
+                    studentPhone:
+                        phone,
+
+                    bookedAt:
+                        new Date(),
+                };
 
                 // SAVE BOOKING
                 await axios.post(
-                    "http://localhost:5000/bookings",
-                    bookingData
+
+                    `${process.env.NEXT_PUBLIC_SERVER_URL}/bookings`,
+
+                    bookingData,
+
+                    {
+                        withCredentials: true,
+                    }
                 );
 
                 // REDUCE SLOT
                 await axios.patch(
-                    `http://localhost:5000/book-tutor/${tutor._id}`
+
+                    `${process.env.NEXT_PUBLIC_SERVER_URL}/book-tutor/${tutor._id}`,
+
+                    {},
+
+                    {
+                        withCredentials: true,
+                    }
                 );
+
+                // UPDATE UI
                 setTutor({
+
                     ...tutor,
-                    totalSlot: tutor.totalSlot - 1,
+
+                    totalSlot:
+                        tutor.totalSlot - 1,
                 });
 
-                alert(
-                    "Session booked successfully!"
+                setAlreadyBooked(
+                    true
+                );
+
+                setIsOpen(false);
+
+                setPhone("");
+
+                toast.success(
+                    "Booking successful!"
                 );
 
             } catch (error) {
 
                 console.log(error);
+
+                alert(
+                    "Booking failed!"
+                );
 
             }
         };
@@ -190,7 +243,9 @@ const TutorDetailsPage = ({
             <div className="flex min-h-screen items-center justify-center">
 
                 <h1 className="text-3xl font-bold">
+
                     Tutor Not Found
+
                 </h1>
 
             </div>
@@ -249,12 +304,16 @@ const TutorDetailsPage = ({
                             <div className="flex items-center justify-between border-b border-gray-100 pb-3">
 
                                 <span className="text-gray-500">
+
                                     Hourly Fee
+
                                 </span>
 
                                 <span className="text-xl font-bold text-blue-600">
+
                                     $
                                     {tutor.hourlyFee}
+
                                 </span>
 
                             </div>
@@ -262,11 +321,15 @@ const TutorDetailsPage = ({
                             <div className="flex items-center justify-between border-b border-gray-100 pb-3">
 
                                 <span className="text-gray-500">
+
                                     Available Days
+
                                 </span>
 
                                 <span className="font-semibold text-slate-800">
+
                                     {tutor.availableDays}
+
                                 </span>
 
                             </div>
@@ -274,11 +337,15 @@ const TutorDetailsPage = ({
                             <div className="flex items-center justify-between border-b border-gray-100 pb-3">
 
                                 <span className="text-gray-500">
+
                                     Time Slot
+
                                 </span>
 
                                 <span className="font-semibold text-slate-800">
+
                                     {tutor.availableTime}
+
                                 </span>
 
                             </div>
@@ -286,11 +353,15 @@ const TutorDetailsPage = ({
                             <div className="flex items-center justify-between border-b border-gray-100 pb-3">
 
                                 <span className="text-gray-500">
+
                                     Institution
+
                                 </span>
 
                                 <span className="font-semibold text-slate-800">
+
                                     {tutor.institution}
+
                                 </span>
 
                             </div>
@@ -298,11 +369,15 @@ const TutorDetailsPage = ({
                             <div className="flex items-center justify-between border-b border-gray-100 pb-3">
 
                                 <span className="text-gray-500">
+
                                     Experience
+
                                 </span>
 
                                 <span className="font-semibold text-slate-800">
+
                                     {tutor.experience}
+
                                 </span>
 
                             </div>
@@ -310,11 +385,15 @@ const TutorDetailsPage = ({
                             <div className="flex items-center justify-between border-b border-gray-100 pb-3">
 
                                 <span className="text-gray-500">
+
                                     Location
+
                                 </span>
 
                                 <span className="font-semibold text-slate-800">
+
                                     {tutor.location}
+
                                 </span>
 
                             </div>
@@ -322,11 +401,15 @@ const TutorDetailsPage = ({
                             <div className="flex items-center justify-between border-b border-gray-100 pb-3">
 
                                 <span className="text-gray-500">
+
                                     Teaching Mode
+
                                 </span>
 
                                 <span className="font-semibold text-slate-800">
+
                                     {tutor.teachingMode}
+
                                 </span>
 
                             </div>
@@ -334,11 +417,15 @@ const TutorDetailsPage = ({
                             <div className="flex items-center justify-between border-b border-gray-100 pb-3">
 
                                 <span className="text-gray-500">
+
                                     Available Slots
+
                                 </span>
 
                                 <span className="font-semibold text-slate-800">
+
                                     {tutor.totalSlot}
+
                                 </span>
 
                             </div>
@@ -346,13 +433,17 @@ const TutorDetailsPage = ({
                             <div className="flex items-center justify-between border-b border-gray-100 pb-3">
 
                                 <span className="text-gray-500">
+
                                     Session Start
+
                                 </span>
 
                                 <span className="font-semibold text-slate-800">
+
                                     {
                                         tutor.sessionStartDate
                                     }
+
                                 </span>
 
                             </div>
@@ -363,7 +454,9 @@ const TutorDetailsPage = ({
                         <div className="mt-10">
 
                             <button
-                                onClick={handleBooking}
+                                onClick={() =>
+                                    setIsOpen(true)
+                                }
                                 disabled={
                                     tutor.totalSlot <= 0 ||
                                     alreadyBooked
@@ -374,6 +467,7 @@ const TutorDetailsPage = ({
                                     : "bg-blue-600 hover:bg-blue-700"
                                     }`}
                             >
+
                                 {
                                     tutor.totalSlot <= 0
                                         ? "Fully Booked"
@@ -381,6 +475,7 @@ const TutorDetailsPage = ({
                                             ? "Already Booked"
                                             : "Book Session"
                                 }
+
                             </button>
 
                         </div>
@@ -390,6 +485,168 @@ const TutorDetailsPage = ({
                 </div>
 
             </div>
+
+            {/* MODAL */}
+            {/* MODAL */}
+            {
+                isOpen && (
+
+                    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50 px-4">
+
+                        <div className="w-full max-w-2xl rounded-[32px] bg-white p-8 shadow-2xl">
+
+                            {/* TITLE */}
+                            <h2 className="text-4xl font-bold text-slate-900">
+
+                                Confirm Booking
+
+                            </h2>
+
+                            <p className="mt-3 text-gray-500">
+
+                                Please confirm your tutor booking information.
+
+                            </p>
+
+                            {/* FORM */}
+                            <div className="mt-8 space-y-5">
+
+                                {/* TUTOR ID */}
+                                <div>
+
+                                    <label className="mb-2 block text-sm font-medium text-slate-700">
+
+                                        Tutor ID
+
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        value={tutor._id}
+                                        readOnly
+                                        className="w-full rounded-xl border border-gray-300 bg-gray-100 px-4 py-3 outline-none"
+                                    />
+
+                                </div>
+
+                                {/* TUTOR NAME */}
+                                <div>
+
+                                    <label className="mb-2 block text-sm font-medium text-slate-700">
+
+                                        Tutor Name
+
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        value={tutor.tutorName}
+                                        readOnly
+                                        className="w-full rounded-xl border border-gray-300 bg-gray-100 px-4 py-3 outline-none"
+                                    />
+
+                                </div>
+
+                                {/* STUDENT NAME */}
+                                <div>
+
+                                    <label className="mb-2 block text-sm font-medium text-slate-700">
+
+                                        Student Name
+
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        placeholder="Enter your name"
+                                        value={studentName}
+                                        onChange={(e) =>
+                                            setStudentName(
+                                                e.target.value
+                                            )
+                                        }
+                                        className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 outline-none focus:border-blue-500"
+                                    />
+
+                                </div>
+
+                                {/* STUDENT EMAIL */}
+                                <div>
+
+                                    <label className="mb-2 block text-sm font-medium text-slate-700">
+
+                                        Student Email
+
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        value={session?.user?.email || ""}
+                                        readOnly
+                                        className="w-full rounded-xl border border-gray-300 bg-gray-100 px-4 py-3 outline-none"
+                                    />
+
+                                </div>
+
+                                {/* PHONE */}
+                                <div>
+
+                                    <label className="mb-2 block text-sm font-medium text-slate-700">
+
+                                        Phone Number
+
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        placeholder="Enter your phone number"
+                                        value={phone}
+                                        onChange={(e) =>
+                                            setPhone(
+                                                e.target.value
+                                            )
+                                        }
+                                        className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 outline-none focus:border-blue-500"
+                                    />
+
+                                </div>
+
+                            </div>
+
+                            {/* BUTTONS */}
+                            <div className="mt-8 flex items-center justify-end gap-4">
+
+                                <button
+                                    onClick={() =>
+                                        setIsOpen(false)
+                                    }
+                                    className="rounded-xl border border-gray-300 px-6 py-3 font-semibold text-slate-700 transition hover:bg-gray-100"
+                                >
+
+                                    Cancel
+
+                                </button>
+
+                                <button
+                                    onClick={handleBooking}
+                                    disabled={!phone}
+                                    className={`rounded-xl px-6 py-3 font-semibold text-white transition ${!phone
+                                        ? "cursor-not-allowed bg-gray-400"
+                                        : "bg-blue-600 hover:bg-blue-700"
+                                        }`}
+                                >
+
+                                    Confirm Booking
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                )
+            }
 
         </div>
     );

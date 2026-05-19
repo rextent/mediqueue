@@ -4,14 +4,53 @@ import Link from "next/link";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "react-toastify";
+import axios from "axios";
+import { useEffect } from "react";
 
 export default function AppNavbar() {
     const { data: session } = authClient.useSession();
+
     console.log(session);
+    useEffect(() => {
+
+        const createJWT =
+            async () => {
+
+                if (session?.user?.email) {
+
+                    await axios.post(
+
+                        "http://localhost:5000/jwt",
+
+                        {
+                            email:
+                                session.user.email,
+                        },
+
+                        {
+                            withCredentials: true,
+                        }
+                    );
+                }
+            };
+
+        createJWT();
+
+    }, [session]);
 
     const handleLogout = async () => {
 
         await authClient.signOut();
+        await axios.post(
+
+            "http://localhost:5000/logout",
+
+            {},
+
+            {
+                withCredentials: true,
+            }
+        );
 
         toast.success("Logged out!");
 
