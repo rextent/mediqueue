@@ -109,7 +109,7 @@ const TutorsPage = () => {
                             >
 
                                 {/* IMAGE */}
-                                <div className="relative h-[260px] w-full overflow-hidden">
+                                <div className="relative h-[320px] w-full overflow-hidden">
 
                                     <Image
                                         src={
@@ -118,7 +118,7 @@ const TutorsPage = () => {
                                         }
                                         alt={tutor.tutorName}
                                         fill
-                                        className="object-cover"
+                                        className="object-cover object-top"
                                     />
 
                                     {/* STATUS */}

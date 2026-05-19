@@ -37,10 +37,10 @@ const AddTutorPage = () => {
         form.availableTime.value,
 
       hourlyFee:
-        form.hourlyFee.value,
+        Number(form.hourlyFee.value),
 
       totalSlot:
-        form.totalSlot.value,
+        Number(form.totalSlot.value),
 
       sessionStartDate:
         form.sessionStartDate.value,
