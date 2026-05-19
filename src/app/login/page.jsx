@@ -47,7 +47,7 @@ export default function LoginPage() {
       // JWT TOKEN CREATE
       await axios.post(
 
-        "http://localhost:5000/jwt",
+        "https://mediqueue-server-f.vercel.app/jwt",
 
         {
           email,

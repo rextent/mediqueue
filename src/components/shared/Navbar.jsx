@@ -20,7 +20,7 @@ export default function AppNavbar() {
 
                     await axios.post(
 
-                        "http://localhost:5000/jwt",
+                        "https://mediqueue-server-f.vercel.app/jwt",
 
                         {
                             email:
@@ -43,7 +43,7 @@ export default function AppNavbar() {
         await authClient.signOut();
         await axios.post(
 
-            "http://localhost:5000/logout",
+            "https://mediqueue-server-f.vercel.app/logout",
 
             {},
 
