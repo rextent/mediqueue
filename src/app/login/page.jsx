@@ -38,8 +38,7 @@ export default function LoginPage() {
           email,
           password,
 
-          callbackURL:
-            window.location.origin,
+          callbackURL:"/"
 
         });
 
