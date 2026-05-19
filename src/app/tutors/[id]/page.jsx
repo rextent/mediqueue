@@ -28,6 +28,9 @@ const TutorDetailsPage = ({
     const [loading, setLoading] =
         useState(true);
 
+    const [alreadyBooked, setAlreadyBooked] =
+        useState(false);
+
     // FETCH TUTOR
     useEffect(() => {
 
@@ -60,6 +63,40 @@ const TutorDetailsPage = ({
         fetchTutor();
 
     }, [id]);
+
+    useEffect(() => {
+
+        const checkBooking =
+            async () => {
+
+                if (!session?.user || !tutor?._id) {
+                    return;
+                }
+
+                try {
+
+                    const res =
+                        await fetch(
+                            `${process.env.NEXT_PUBLIC_SERVER_URL}/bookings/check?tutorId=${tutor._id}&studentEmail=${session.user.email}`
+                        );
+
+                    const data =
+                        await res.json();
+
+                    setAlreadyBooked(
+                        data.exists
+                    );
+
+                } catch (error) {
+
+                    console.log(error);
+
+                }
+            };
+
+        checkBooking();
+
+    }, [session, tutor]);
 
     // BOOK SESSION
     const handleBooking =
@@ -116,6 +153,10 @@ const TutorDetailsPage = ({
                 await axios.patch(
                     `http://localhost:5000/tutors/${tutor._id}`
                 );
+                setTutor({
+                    ...tutor,
+                    totalSlot: tutor.totalSlot - 1,
+                });
 
                 alert(
                     "Session booked successfully!"
@@ -323,9 +364,23 @@ const TutorDetailsPage = ({
 
                             <button
                                 onClick={handleBooking}
-                                className="w-full rounded-2xl bg-blue-600 px-6 py-4 text-lg font-semibold text-white transition hover:bg-blue-700"
+                                disabled={
+                                    tutor.totalSlot <= 0 ||
+                                    alreadyBooked
+                                }
+                                className={`w-full rounded-2xl px-6 py-4 text-lg font-semibold text-white transition ${tutor.totalSlot <= 0 ||
+                                    alreadyBooked
+                                    ? "cursor-not-allowed bg-gray-400"
+                                    : "bg-blue-600 hover:bg-blue-700"
+                                    }`}
                             >
-                                Book Session
+                                {
+                                    tutor.totalSlot <= 0
+                                        ? "Fully Booked"
+                                        : alreadyBooked
+                                            ? "Already Booked"
+                                            : "Book Session"
+                                }
                             </button>
 
                         </div>
