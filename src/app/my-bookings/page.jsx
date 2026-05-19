@@ -101,17 +101,18 @@ const MyBookingsPage = () => {
 
                     ) : (
 
-                        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
+                        <div className="space-y-6">
 
                             {
                                 bookings.map((booking) => (
 
                                     <div
                                         key={booking._id}
-                                        className="overflow-hidden rounded-[30px] bg-white shadow-xl"
+                                        className="flex flex-col gap-6 rounded-[28px] bg-white p-6 shadow-xl lg:flex-row lg:items-center"
                                     >
 
-                                        <div className="relative h-[260px]">
+                                        {/* IMAGE */}
+                                        <div className="relative h-[220px] w-full overflow-hidden rounded-[24px] lg:h-[160px] lg:w-[220px]">
 
                                             <Image
                                                 src={
@@ -123,63 +124,98 @@ const MyBookingsPage = () => {
                                                     "Tutor Image"
                                                 }
                                                 fill
-                                                className="object-cover"
+                                                className="object-cover object-top"
                                             />
 
                                         </div>
 
-                                        <div className="p-6">
+                                        {/* CONTENT */}
+                                        <div className="flex-1">
 
-                                            <h2 className="text-2xl font-bold text-slate-900">
+                                            {/* TOP */}
+                                            <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
 
-                                                {
-                                                    booking.tutorName
-                                                }
+                                                <div>
 
-                                            </h2>
+                                                    <div className="mb-3 inline-block rounded-full bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-600">
 
-                                            <p className="mt-2 font-medium text-blue-600">
+                                                        {
+                                                            booking.subject
+                                                        }
 
-                                                {
-                                                    booking.subject
-                                                }
+                                                    </div>
 
-                                            </p>
+                                                    <h2 className="text-3xl font-bold text-slate-900">
 
-                                            <div className="mt-6 space-y-3">
+                                                        {
+                                                            booking.tutorName
+                                                        }
 
-                                                <div className="flex items-center justify-between">
+                                                    </h2>
 
-                                                    <span className="text-gray-500">
+                                                    <p className="mt-2 text-gray-500">
+
+                                                        Booked by
+                                                        {" "}
+                                                        {
+                                                            booking.studentName
+                                                        }
+
+                                                    </p>
+
+                                                </div>
+
+                                                {/* PRICE */}
+                                                <div className="rounded-2xl bg-slate-100 px-5 py-4 text-center">
+
+                                                    <p className="text-sm text-gray-500">
+
                                                         Hourly Fee
-                                                    </span>
 
-                                                    <span className="font-bold text-slate-900">
+                                                    </p>
+
+                                                    <h3 className="mt-1 text-2xl font-bold text-blue-600">
 
                                                         $
                                                         {
                                                             booking.hourlyFee
                                                         }
 
-                                                    </span>
+                                                    </h3>
 
                                                 </div>
 
-                                                <div className="flex items-center justify-between">
+                                            </div>
 
-                                                    <span className="text-gray-500">
-                                                        Student
-                                                    </span>
+                                            {/* BOTTOM */}
+                                            <div className="mt-6 flex flex-col gap-4 border-t border-gray-100 pt-5 lg:flex-row lg:items-center lg:justify-between">
 
-                                                    <span className="font-semibold text-slate-900">
+                                                <div className="flex flex-wrap gap-3">
+
+                                                    <div className="rounded-full bg-green-100 px-4 py-2 text-sm font-semibold text-green-600">
+
+                                                        Session Booked
+
+                                                    </div>
+
+                                                    <div className="rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700">
 
                                                         {
-                                                            booking.studentName
+                                                            booking.subject
                                                         }
 
-                                                    </span>
+                                                    </div>
 
                                                 </div>
+
+                                                {/* CANCEL BUTTON */}
+                                                <button
+                                                    className="cursor-pointer rounded-2xl bg-red-500 px-6 py-3 font-semibold text-white transition hover:bg-red-600"
+                                                >
+
+                                                    Cancel Booking
+
+                                                </button>
 
                                             </div>
 

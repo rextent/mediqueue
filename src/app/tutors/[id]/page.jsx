@@ -151,7 +151,7 @@ const TutorDetailsPage = ({
 
                 // REDUCE SLOT
                 await axios.patch(
-                    `http://localhost:5000/tutors/${tutor._id}`
+                    `http://localhost:5000/book-tutor/${tutor._id}`
                 );
                 setTutor({
                     ...tutor,
