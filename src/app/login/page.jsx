@@ -89,8 +89,17 @@ export default function LoginPage() {
 
           provider: "google",
 
-          callbackURL: window.location.origin,
+          callbackURL:
+            `${window.location.origin}`,
 
+          fetchOptions: {
+
+            onSuccess: () => {
+
+              window.location.href =
+                "/";
+            },
+          },
         });
 
       } catch (error) {
