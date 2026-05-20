@@ -10,12 +10,13 @@ const AddTutorPage = () => {
 
   const router = useRouter();
 
-  const { data: session } =
-    authClient.useSession();
-
   const handleAddTutor = async (e) => {
 
     e.preventDefault();
+
+    // GET SESSION ONLY WHEN SUBMIT
+    const session =
+      await authClient.getSession();
 
     const form = e.target;
 
@@ -58,13 +59,13 @@ const AddTutorPage = () => {
         form.teachingMode.value,
 
       email:
-        session?.user?.email,
+        session?.data?.user?.email,
 
       createdAt:
         new Date(),
+
       status:
         "active",
-
     };
 
     console.log(tutorData);
@@ -72,12 +73,15 @@ const AddTutorPage = () => {
     try {
 
       const res = await fetch(
+
         `${process.env.NEXT_PUBLIC_SERVER_URL}/tutors`,
+
         {
 
           method: "POST",
 
           headers: {
+
             "content-type":
               "application/json",
           },
@@ -85,7 +89,6 @@ const AddTutorPage = () => {
           body: JSON.stringify(
             tutorData
           ),
-
         }
       );
 
@@ -101,8 +104,10 @@ const AddTutorPage = () => {
         );
 
         form.reset();
-        router.push("/my-tutors");
 
+        router.push(
+          "/my-tutors"
+        );
       }
 
     } catch (error) {
@@ -112,7 +117,6 @@ const AddTutorPage = () => {
       toast.error(
         "Failed to add tutor"
       );
-
     }
   };
 
@@ -126,12 +130,16 @@ const AddTutorPage = () => {
         <div className="mb-10 text-center">
 
           <h1 className="text-4xl font-bold text-slate-900">
+
             Add Tutor
+
           </h1>
 
           <p className="mt-3 text-gray-500">
+
             Add your tutor profile and start
             teaching students.
+
           </p>
 
         </div>
@@ -146,7 +154,9 @@ const AddTutorPage = () => {
           <div>
 
             <label className="mb-2 block text-sm font-medium text-slate-700">
+
               Tutor Name
+
             </label>
 
             <input
@@ -163,7 +173,9 @@ const AddTutorPage = () => {
           <div>
 
             <label className="mb-2 block text-sm font-medium text-slate-700">
+
               Photo URL
+
             </label>
 
             <input
@@ -180,7 +192,9 @@ const AddTutorPage = () => {
           <div>
 
             <label className="mb-2 block text-sm font-medium text-slate-700">
+
               Subject / Category
+
             </label>
 
             <select
@@ -225,7 +239,9 @@ const AddTutorPage = () => {
           <div>
 
             <label className="mb-2 block text-sm font-medium text-slate-700">
+
               Available Days
+
             </label>
 
             <select
@@ -262,7 +278,9 @@ const AddTutorPage = () => {
           <div>
 
             <label className="mb-2 block text-sm font-medium text-slate-700">
+
               Available Time Slot
+
             </label>
 
             <select
@@ -299,7 +317,9 @@ const AddTutorPage = () => {
           <div>
 
             <label className="mb-2 block text-sm font-medium text-slate-700">
+
               Hourly Fee
+
             </label>
 
             <input
@@ -316,7 +336,9 @@ const AddTutorPage = () => {
           <div>
 
             <label className="mb-2 block text-sm font-medium text-slate-700">
+
               Total Slot
+
             </label>
 
             <input
@@ -333,7 +355,9 @@ const AddTutorPage = () => {
           <div>
 
             <label className="mb-2 block text-sm font-medium text-slate-700">
+
               Session Start Date
+
             </label>
 
             <div className="relative">
@@ -346,7 +370,9 @@ const AddTutorPage = () => {
               />
 
               <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">
+
                 📅
+
               </span>
 
             </div>
@@ -357,7 +383,9 @@ const AddTutorPage = () => {
           <div>
 
             <label className="mb-2 block text-sm font-medium text-slate-700">
+
               Institution
+
             </label>
 
             <input
@@ -374,7 +402,9 @@ const AddTutorPage = () => {
           <div>
 
             <label className="mb-2 block text-sm font-medium text-slate-700">
+
               Experience
+
             </label>
 
             <input
@@ -391,7 +421,9 @@ const AddTutorPage = () => {
           <div>
 
             <label className="mb-2 block text-sm font-medium text-slate-700">
+
               Location
+
             </label>
 
             <input
@@ -408,7 +440,9 @@ const AddTutorPage = () => {
           <div>
 
             <label className="mb-2 block text-sm font-medium text-slate-700">
+
               Teaching Mode
+
             </label>
 
             <select
@@ -444,7 +478,9 @@ const AddTutorPage = () => {
               type="submit"
               className="w-full rounded-2xl bg-blue-600 px-4 py-3 font-semibold text-white transition hover:bg-blue-700"
             >
+
               Add Tutor
+
             </button>
 
           </div>
