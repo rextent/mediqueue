@@ -10,11 +10,12 @@ import {
 import axios from "axios";
 
 import Image from "next/image";
+
 import { toast } from "react-toastify";
 
-
-
-import { authClient } from "@/lib/auth-client";
+import {
+    authClient,
+} from "@/lib/auth-client";
 
 const TutorDetailsPage = ({
     params,
@@ -82,6 +83,13 @@ const TutorDetailsPage = ({
 
     }, [id]);
 
+    // CHECK EXPIRED
+    const isExpired =
+        tutor?.sessionStartDate &&
+        new Date(
+            tutor.sessionStartDate
+        ) < new Date();
+
     // CHECK ALREADY BOOKED
     useEffect(() => {
 
@@ -125,10 +133,21 @@ const TutorDetailsPage = ({
     const handleBooking =
         async () => {
 
+            // LOGIN CHECK
             if (!session?.user) {
 
                 alert(
                     "Please login first"
+                );
+
+                return;
+            }
+
+            // EXPIRED CHECK
+            if (isExpired) {
+
+                toast.error(
+                    "This session has expired"
                 );
 
                 return;
@@ -154,7 +173,7 @@ const TutorDetailsPage = ({
                         tutor.hourlyFee,
 
                     studentName:
-                        session.user.name,
+                        studentName,
 
                     studentEmail:
                         session.user.email,
@@ -215,7 +234,7 @@ const TutorDetailsPage = ({
 
                 console.log(error);
 
-                alert(
+                toast.error(
                     "Booking failed!"
                 );
 
@@ -270,12 +289,48 @@ const TutorDetailsPage = ({
                                     tutor.photo ||
                                     "/default-tutor.jpg"
                                 }
+
                                 alt={
                                     tutor.tutorName
                                 }
+
                                 fill
+
                                 className="object-cover object-top"
                             />
+
+                            {/* STATUS BADGE */}
+                            <div className="absolute left-5 top-5">
+
+                                {
+                                    isExpired ? (
+
+                                        <span className="rounded-full bg-red-500 px-5 py-2 text-sm font-semibold text-white shadow-lg">
+
+                                            Session Closed
+
+                                        </span>
+
+                                    ) : tutor.totalSlot <= 0 ? (
+
+                                        <span className="rounded-full bg-gray-700 px-5 py-2 text-sm font-semibold text-white shadow-lg">
+
+                                            Fully Booked
+
+                                        </span>
+
+                                    ) : (
+
+                                        <span className="rounded-full bg-green-500 px-5 py-2 text-sm font-semibold text-white shadow-lg">
+
+                                            Available
+
+                                        </span>
+
+                                    )
+                                }
+
+                            </div>
 
                         </div>
 
@@ -438,13 +493,28 @@ const TutorDetailsPage = ({
 
                                 </span>
 
-                                <span className="font-semibold text-slate-800">
+                                <div className="flex items-center">
+
+                                    <span className="font-semibold text-slate-800">
+
+                                        {
+                                            tutor.sessionStartDate
+                                        }
+
+                                    </span>
 
                                     {
-                                        tutor.sessionStartDate
+                                        isExpired && (
+
+                                            <span className="ml-3 rounded-full bg-red-100 px-3 py-1 text-xs font-semibold text-red-600">
+
+                                                Expired
+
+                                            </span>
+                                        )
                                     }
 
-                                </span>
+                                </div>
 
                             </div>
 
@@ -457,23 +527,30 @@ const TutorDetailsPage = ({
                                 onClick={() =>
                                     setIsOpen(true)
                                 }
+
                                 disabled={
                                     tutor.totalSlot <= 0 ||
-                                    alreadyBooked
+                                    alreadyBooked ||
+                                    isExpired
                                 }
-                                className={`w-full rounded-2xl px-6 py-4 text-lg font-semibold text-white transition ${tutor.totalSlot <= 0 ||
-                                    alreadyBooked
-                                    ? "cursor-not-allowed bg-gray-400"
-                                    : "bg-blue-600 hover:bg-blue-700"
-                                    }`}
+
+                                className={`w-full rounded-2xl px-6 py-4 text-lg font-semibold text-white transition ${
+                                    tutor.totalSlot <= 0 ||
+                                    alreadyBooked ||
+                                    isExpired
+                                        ? "cursor-not-allowed bg-gray-400"
+                                        : "bg-blue-600 hover:bg-blue-700"
+                                }`}
                             >
 
                                 {
-                                    tutor.totalSlot <= 0
-                                        ? "Fully Booked"
-                                        : alreadyBooked
-                                            ? "Already Booked"
-                                            : "Book Session"
+                                    isExpired
+                                        ? "Session Closed"
+                                        : tutor.totalSlot <= 0
+                                            ? "Fully Booked"
+                                            : alreadyBooked
+                                                ? "Already Booked"
+                                                : "Book Session"
                                 }
 
                             </button>
@@ -486,7 +563,6 @@ const TutorDetailsPage = ({
 
             </div>
 
-            {/* MODAL */}
             {/* MODAL */}
             {
                 isOpen && (
@@ -522,8 +598,11 @@ const TutorDetailsPage = ({
 
                                     <input
                                         type="text"
+
                                         value={tutor._id}
+
                                         readOnly
+
                                         className="w-full rounded-xl border border-gray-300 bg-gray-100 px-4 py-3 outline-none"
                                     />
 
@@ -540,8 +619,11 @@ const TutorDetailsPage = ({
 
                                     <input
                                         type="text"
+
                                         value={tutor.tutorName}
+
                                         readOnly
+
                                         className="w-full rounded-xl border border-gray-300 bg-gray-100 px-4 py-3 outline-none"
                                     />
 
@@ -558,13 +640,17 @@ const TutorDetailsPage = ({
 
                                     <input
                                         type="text"
+
                                         placeholder="Enter your name"
+
                                         value={studentName}
+
                                         onChange={(e) =>
                                             setStudentName(
                                                 e.target.value
                                             )
                                         }
+
                                         className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 outline-none focus:border-blue-500"
                                     />
 
@@ -581,8 +667,11 @@ const TutorDetailsPage = ({
 
                                     <input
                                         type="text"
+
                                         value={session?.user?.email || ""}
+
                                         readOnly
+
                                         className="w-full rounded-xl border border-gray-300 bg-gray-100 px-4 py-3 outline-none"
                                     />
 
@@ -599,13 +688,17 @@ const TutorDetailsPage = ({
 
                                     <input
                                         type="text"
+
                                         placeholder="Enter your phone number"
+
                                         value={phone}
+
                                         onChange={(e) =>
                                             setPhone(
                                                 e.target.value
                                             )
                                         }
+
                                         className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 outline-none focus:border-blue-500"
                                     />
 
@@ -620,6 +713,7 @@ const TutorDetailsPage = ({
                                     onClick={() =>
                                         setIsOpen(false)
                                     }
+
                                     className="rounded-xl border border-gray-300 px-6 py-3 font-semibold text-slate-700 transition hover:bg-gray-100"
                                 >
 
@@ -629,11 +723,14 @@ const TutorDetailsPage = ({
 
                                 <button
                                     onClick={handleBooking}
+
                                     disabled={!phone}
-                                    className={`rounded-xl px-6 py-3 font-semibold text-white transition ${!phone
-                                        ? "cursor-not-allowed bg-gray-400"
-                                        : "bg-blue-600 hover:bg-blue-700"
-                                        }`}
+
+                                    className={`rounded-xl px-6 py-3 font-semibold text-white transition ${
+                                        !phone
+                                            ? "cursor-not-allowed bg-gray-400"
+                                            : "bg-blue-600 hover:bg-blue-700"
+                                    }`}
                                 >
 
                                     Confirm Booking
