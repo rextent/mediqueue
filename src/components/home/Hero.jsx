@@ -13,7 +13,7 @@ export default function Hero() {
 
       <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-cyan-200/40 blur-3xl"></div>
 
-      <div className="container-width grid min-h-[80vh] items-center gap-14 py-20 lg:grid-cols-2">
+      <div className="container-width grid min-h-[80vh] items-center gap-14 py-14 lg:py-20 lg:grid-cols-2">
         
         {/* LEFT CONTENT */}
         <motion.div
