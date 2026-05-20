@@ -18,12 +18,12 @@ export default function TutorCard({
 
         <Image
           src={
-            tutor.photoURL ||
+            tutor.photo ||
             "/default-tutor.png"
           }
 
           alt={
-            tutor.name
+            tutor.tutorName
           }
 
           width={500}
@@ -32,11 +32,11 @@ export default function TutorCard({
           className="h-[280px] w-full object-cover object-top transition duration-500 group-hover:scale-105"
         />
 
-        {/* SUBJECT */}
+        {/* CATEGORY */}
         <div className="absolute left-4 top-4 rounded-full bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-lg">
 
           {
-            tutor.subject ||
+            tutor.category ||
             "Tutor"
           }
 
@@ -51,7 +51,7 @@ export default function TutorCard({
         <h3 className="font-heading text-2xl font-bold text-slate-900">
 
           {
-            tutor.name
+            tutor.tutorName
           }
 
         </h3>
@@ -61,7 +61,7 @@ export default function TutorCard({
 
           {
             tutor.experience
-          } Years Experience
+          }
 
         </p>
 
