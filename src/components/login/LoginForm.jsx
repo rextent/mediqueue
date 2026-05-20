@@ -4,25 +4,18 @@ import { useState } from "react";
 
 import Link from "next/link";
 
-import axios from "axios";
-
 import toast from "react-hot-toast";
 
 import {
-
-    useRouter,
 
     useSearchParams,
 
 } from "next/navigation";
 
 import { authClient }
-    from "@/lib/auth-client";
+from "@/lib/auth-client";
 
 const LoginForm = () => {
-
-    const router =
-        useRouter();
 
     const searchParams =
         useSearchParams();
@@ -57,29 +50,19 @@ const LoginForm = () => {
                     email,
 
                     password,
-
-
                 });
-
-                // JWT TOKEN
-                await axios.post(
-
-                    "https://mediqueue-server-f.vercel.app/jwt",
-
-                    {
-                        email,
-                    },
-
-                    {
-                        withCredentials: true,
-                    }
-                );
 
                 toast.success(
                     "Login successful!"
                 );
-                window.location.href =
-                    redirectPath;
+
+                // WAIT FOR COOKIE
+                setTimeout(() => {
+
+                    window.location.href =
+                        redirectPath;
+
+                }, 1000);
 
             } catch (error) {
 
@@ -104,8 +87,6 @@ const LoginForm = () => {
                 await authClient.signIn.social({
 
                     provider: "google",
-
-
                 });
 
             } catch (error) {
