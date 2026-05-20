@@ -2,7 +2,7 @@ import {
   NextResponse,
 } from "next/server";
 
-export const proxy = async (
+export const proxy = (
   request
 ) => {
 
@@ -26,74 +26,46 @@ export const proxy = async (
         )
     );
 
-  // PUBLIC ROUTE
+  // NOT PROTECTED
   if (!isProtected) {
 
     return NextResponse.next();
   }
 
-  try {
+  // BETTER AUTH COOKIE
+  const sessionToken =
 
-    // DYNAMIC BASE URL
-    const baseUrl =
-      request.nextUrl.origin;
+    request.cookies.get(
+      "__Secure-better-auth.session_token"
+    ) ||
 
-    // GET SESSION
-    const response =
-      await fetch(
+    request.cookies.get(
+      "better-auth.session_token"
+    );
 
-        `${baseUrl}/api/auth/get-session`,
+  // NOT LOGGED IN
+  if (!sessionToken) {
 
-        {
-          headers: {
-
-            cookie:
-              request.headers.get(
-                "cookie"
-              ) || "",
-          },
-        }
-      );
-
-    const session =
-      await response.json();
-
-    // NOT LOGGED IN
-    if (!session?.user) {
-
-      const loginUrl =
-        new URL(
-          "/login",
-          request.url
-        );
-
-      loginUrl.searchParams.set(
-
-        "redirect",
-
-        pathname
-      );
-
-      return NextResponse.redirect(
-        loginUrl
-      );
-    }
-
-    // LOGGED IN
-    return NextResponse.next();
-
-  } catch (error) {
-
-    console.log(error);
-
-    return NextResponse.redirect(
-
+    const loginUrl =
       new URL(
         "/login",
         request.url
-      )
+      );
+
+    loginUrl.searchParams.set(
+
+      "redirect",
+
+      pathname
+    );
+
+    return NextResponse.redirect(
+      loginUrl
     );
   }
+
+  // LOGGED IN
+  return NextResponse.next();
 };
 
 export const config = {
