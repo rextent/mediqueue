@@ -1,85 +1,106 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
 import SectionTitle from "../ui/SectionTitle";
+
 import TutorCard from "./TutorCard";
 
-const tutors = [
-  {
-    id: 1,
-    name: "Sarah Johnson",
-    subject: "Mathematics",
-    experience: "5 Years Experience",
-    price: 25,
-    image:
-      "/sarah.png",
-  },
+const FeaturedTutors = () => {
 
-  {
-    id: 2,
-    name: "David Smith",
-    subject: "Physics",
-    experience: "7 Years Experience",
-    price: 30,
-    image:
-      "/david.png",
-  },
+  const [tutors, setTutors] =
+    useState([]);
 
-  {
-    id: 3,
-    name: "Emily Brown",
-    subject: "Chemistry",
-    experience: "4 Years Experience",
-    price: 22,
-    image:
-      "/emily.png",
-  },
-  {
-  id: 4,
-  name: "Michael Lee",
-  subject: "Biology",
-  experience: "6 Years Experience",
-  price: 28,
-  image: "/michael.png",
-},
+  const [loading, setLoading] =
+    useState(true);
 
-{
-  id: 5,
-  name: "Sophia Taylor",
-  subject: "English",
-  experience: "3 Years Experience",
-  price: 20,
-  image: "/sophia.png",
-},
+  useEffect(() => {
 
-{
-  id: 6,
-  name: "James Wilson",
-  subject: "ICT",
-  experience: "8 Years Experience",
-  price: 35,
-  image: "/james.png",
-},
-];
+    const fetchTutors =
+      async () => {
 
-export default function FeaturedTutors() {
+        try {
+
+          const res =
+            await fetch(
+              `${process.env.NEXT_PUBLIC_SERVER_URL}/tutors`
+            );
+
+          const data =
+            await res.json();
+
+          // ONLY FIRST 6
+          setTutors(
+            data.slice(0, 6)
+          );
+
+        } catch (error) {
+
+          console.log(error);
+
+        } finally {
+
+          setLoading(false);
+        }
+      };
+
+    fetchTutors();
+
+  }, []);
+
   return (
+
     <section className="bg-white py-20">
+
       <div className="container-width">
-        
+
         <SectionTitle
           badge="Featured Tutors"
           title="Meet Our Professional Tutors"
           description="Connect with experienced and verified tutors for personalized online and offline learning sessions."
         />
 
-        {/* GRID */}
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {tutors.map((tutor) => (
-            <TutorCard
-              key={tutor.id}
-              tutor={tutor}
-            />
-          ))}
-        </div>
+        {/* LOADING */}
+        {
+          loading ? (
+
+            <div className="flex justify-center py-20">
+
+              <span className="loading loading-spinner loading-lg text-blue-600"></span>
+
+            </div>
+
+          ) : (
+
+            <>
+
+              {/* GRID */}
+              <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+
+                {
+                  tutors.map(
+                    (tutor) => (
+
+                      <TutorCard
+                        key={tutor._id}
+                        tutor={tutor}
+                      />
+
+                    )
+                  )
+                }
+
+              </div>
+
+            </>
+
+          )
+        }
+
       </div>
+
     </section>
   );
-}
+};
+
+export default FeaturedTutors;
