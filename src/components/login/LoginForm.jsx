@@ -88,7 +88,7 @@ const LoginForm = () => {
                     window.location.href =
                         redirectPath;
 
-                }, 300);
+                }, 1200);
 
             } catch (error) {
 
@@ -116,8 +116,7 @@ const LoginForm = () => {
 
                     callbackURL:
 
-                        window.location.origin +
-                        redirectPath,
+                        `${window.location.origin}${redirectPath}`,
                 });
 
             } catch (error) {
