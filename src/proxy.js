@@ -6,13 +6,16 @@ export const proxy = (
   request
 ) => {
 
-  const token =
-    request.cookies.get(
-      "token"
-    );
-
   const pathname =
     request.nextUrl.pathname;
+
+  // BETTER AUTH SESSION COOKIE
+  const sessionToken =
+
+    request.cookies.get(
+
+      "better-auth.session_token"
+    );
 
   const protectedRoutes = [
 
@@ -24,7 +27,9 @@ export const proxy = (
   ];
 
   const isProtected =
+
     protectedRoutes.some(
+
       (route) =>
 
         pathname.startsWith(
@@ -35,7 +40,7 @@ export const proxy = (
   // NOT LOGGED IN
   if (
     isProtected &&
-    !token
+    !sessionToken
   ) {
 
     const loginUrl =
