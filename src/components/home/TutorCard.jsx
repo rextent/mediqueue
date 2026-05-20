@@ -29,7 +29,7 @@ export default function TutorCard({
           width={500}
           height={400}
 
-          className="h-[280px] w-full object-cover object-top transition duration-500 group-hover:scale-105"
+          className="h-[240px] w-full object-cover object-top transition duration-500 group-hover:scale-105"
         />
 
         {/* CATEGORY */}
@@ -45,41 +45,49 @@ export default function TutorCard({
       </div>
 
       {/* CONTENT */}
-      <div className="p-6">
+      <div className="space-y-5 p-6">
 
-        {/* NAME */}
-        <h3 className="font-heading text-2xl font-bold text-slate-900">
+        {/* TOP */}
+        <div>
 
-          {
-            tutor.tutorName
-          }
+          {/* NAME */}
+          <h3 className="line-clamp-1 font-heading text-[30px] font-bold text-slate-900">
 
-        </h3>
+            {
+              tutor.tutorName
+            }
 
-        {/* EXPERIENCE */}
-        <p className="mt-2 text-gray-500">
+          </h3>
 
-          {
-            tutor.experience
-          }
+          {/* EXPERIENCE + RATING */}
+          <div className="mt-3 flex items-center justify-between">
 
-        </p>
+            <p className="text-gray-500">
 
-        {/* RATING */}
-        <div className="mt-4 flex items-center gap-2">
+              {
+                tutor.experience
+              }
 
-          <FaStar className="text-yellow-400" />
+            </p>
 
-          <span className="font-medium text-gray-700">
+            <div className="flex items-center gap-2">
 
-            4.9 Rating
+              <FaStar className="text-yellow-400" />
 
-          </span>
+              <span className="font-medium text-gray-700">
+
+                4.9
+
+              </span>
+
+            </div>
+
+          </div>
 
         </div>
 
-        {/* PRICE */}
-        <div className="mt-6 flex items-center justify-between">
+        {/* BOTTOM */}
+        <div className="flex items-end justify-between border-t border-gray-100 pt-5">
 
           <div>
 
@@ -89,7 +97,7 @@ export default function TutorCard({
 
             </p>
 
-            <h4 className="text-2xl font-bold text-blue-600">
+            <h4 className="mt-1 text-3xl font-bold text-blue-600">
 
               $
               {
@@ -103,7 +111,7 @@ export default function TutorCard({
           <Link
             href={`/tutors/${tutor._id}`}
 
-            className="btn rounded-xl border-0 bg-blue-600 text-white hover:bg-blue-700"
+            className="btn h-11 min-h-0 rounded-2xl border-0 bg-blue-600 px-5 text-white shadow-md hover:bg-blue-700"
           >
 
             Book Session

@@ -14,6 +14,17 @@ const TutorsPage = () => {
     const [loading, setLoading] =
         useState(true);
 
+    // SEARCH
+    const [searchText, setSearchText] =
+        useState("");
+
+    // DATE FILTER
+    const [startDate, setStartDate] =
+        useState("");
+
+    const [endDate, setEndDate] =
+        useState("");
+
     useEffect(() => {
 
         const fetchTutors =
@@ -21,10 +32,23 @@ const TutorsPage = () => {
 
                 try {
 
+                    setLoading(true);
+
+                    let url =
+                        `${process.env.NEXT_PUBLIC_SERVER_URL}/tutors?search=${searchText}`;
+
+                    // DATE FILTER
+                    if (
+                        startDate &&
+                        endDate
+                    ) {
+
+                        url +=
+                            `&startDate=${startDate}&endDate=${endDate}`;
+                    }
+
                     const res =
-                        await fetch(
-                            `${process.env.NEXT_PUBLIC_SERVER_URL}/tutors`
-                        );
+                        await fetch(url);
 
                     const data =
                         await res.json();
@@ -44,7 +68,11 @@ const TutorsPage = () => {
 
         fetchTutors();
 
-    }, []);
+    }, [
+        searchText,
+        startDate,
+        endDate,
+    ]);
 
     // LOADING
     if (loading) {
@@ -69,13 +97,85 @@ const TutorsPage = () => {
                 <div className="mb-10 text-center">
 
                     <h1 className="text-4xl font-bold text-slate-900">
+
                         Find Your Perfect Tutor
+
                     </h1>
 
                     <p className="mt-3 text-gray-500">
+
                         Explore expert tutors and book
                         your learning sessions easily.
+
                     </p>
+
+                </div>
+
+                {/* SEARCH + FILTER */}
+                <div className="mb-10 rounded-[28px] border border-gray-100 bg-white p-5 shadow-sm">
+
+                    <div className="grid gap-4 lg:grid-cols-4">
+
+                        {/* SEARCH */}
+                        <div className="lg:col-span-2">
+
+                            <input
+                                type="text"
+
+                                placeholder="Search tutor by name..."
+
+                                value={searchText}
+
+                                onChange={(e) =>
+                                    setSearchText(
+                                        e.target.value
+                                    )
+                                }
+
+                                className="input input-bordered h-14 w-full rounded-2xl border-gray-200 bg-slate-50"
+                            />
+
+                        </div>
+
+                        {/* START DATE */}
+                        <div>
+
+                            <input
+                                type="date"
+
+                                value={startDate}
+
+                                onChange={(e) =>
+                                    setStartDate(
+                                        e.target.value
+                                    )
+                                }
+
+                                className="input input-bordered h-14 w-full rounded-2xl border-gray-200 bg-slate-50"
+                            />
+
+                        </div>
+
+                        {/* END DATE */}
+                        <div>
+
+                            <input
+                                type="date"
+
+                                value={endDate}
+
+                                onChange={(e) =>
+                                    setEndDate(
+                                        e.target.value
+                                    )
+                                }
+
+                                className="input input-bordered h-14 w-full rounded-2xl border-gray-200 bg-slate-50"
+                            />
+
+                        </div>
+
+                    </div>
 
                 </div>
 
@@ -86,11 +186,15 @@ const TutorsPage = () => {
                         <div className="rounded-3xl bg-white py-20 text-center shadow-lg">
 
                             <h2 className="text-2xl font-bold text-slate-800">
-                                No Tutors Available
+
+                                No Tutors Found
+
                             </h2>
 
                             <p className="mt-3 text-gray-500">
-                                Tutors will appear here once added.
+
+                                Try changing search or filter options.
+
                             </p>
 
                         </div>
@@ -105,19 +209,23 @@ const TutorsPage = () => {
 
                             <div
                                 key={tutor._id}
+
                                 className="overflow-hidden rounded-[28px] border border-gray-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
                             >
 
                                 {/* IMAGE */}
-                                <div className="relative h-[320px] w-full overflow-hidden">
+                                <div className="relative h-[260px] w-full overflow-hidden">
 
                                     <Image
                                         src={
                                             tutor.photo ||
                                             "/default-tutor.jpg"
                                         }
+
                                         alt={tutor.tutorName}
+
                                         fill
+
                                         className="object-cover object-top"
                                     />
 
@@ -128,13 +236,17 @@ const TutorsPage = () => {
                                             tutor.status === "closed" ? (
 
                                                 <span className="rounded-full bg-red-100 px-4 py-1 text-xs font-semibold text-red-600">
+
                                                     Fully Booked
+
                                                 </span>
 
                                             ) : (
 
                                                 <span className="rounded-full bg-green-100 px-4 py-1 text-xs font-semibold text-green-600">
+
                                                     Available
+
                                                 </span>
 
                                             )
@@ -153,11 +265,19 @@ const TutorsPage = () => {
                                         <div>
 
                                             <h2 className="text-2xl font-bold text-slate-900">
-                                                {tutor.tutorName}
+
+                                                {
+                                                    tutor.tutorName
+                                                }
+
                                             </h2>
 
                                             <p className="mt-1 text-sm font-medium text-blue-600">
-                                                {tutor.category}
+
+                                                {
+                                                    tutor.category
+                                                }
+
                                             </p>
 
                                         </div>
@@ -165,11 +285,18 @@ const TutorsPage = () => {
                                         <div className="rounded-2xl bg-blue-50 px-4 py-2 text-right">
 
                                             <p className="text-xs text-gray-500">
+
                                                 Hourly Fee
+
                                             </p>
 
                                             <h3 className="text-lg font-bold text-blue-600">
-                                                ${tutor.hourlyFee}
+
+                                                $
+                                                {
+                                                    tutor.hourlyFee
+                                                }
+
                                             </h3>
 
                                         </div>
@@ -186,7 +313,11 @@ const TutorsPage = () => {
                                             </span>
 
                                             <span className="font-medium text-slate-800">
-                                                {tutor.availableDays}
+
+                                                {
+                                                    tutor.availableDays
+                                                }
+
                                             </span>
 
                                         </div>
@@ -198,7 +329,11 @@ const TutorsPage = () => {
                                             </span>
 
                                             <span className="font-medium text-slate-800">
-                                                {tutor.availableTime}
+
+                                                {
+                                                    tutor.availableTime
+                                                }
+
                                             </span>
 
                                         </div>
@@ -210,31 +345,11 @@ const TutorsPage = () => {
                                             </span>
 
                                             <span className="font-medium text-slate-800">
-                                                {tutor.location}
-                                            </span>
 
-                                        </div>
+                                                {
+                                                    tutor.location
+                                                }
 
-                                        <div className="flex items-center justify-between">
-
-                                            <span>
-                                                Teaching Mode
-                                            </span>
-
-                                            <span className="font-medium text-slate-800">
-                                                {tutor.teachingMode}
-                                            </span>
-
-                                        </div>
-
-                                        <div className="flex items-center justify-between">
-
-                                            <span>
-                                                Available Slots
-                                            </span>
-
-                                            <span className="font-medium text-slate-800">
-                                                {tutor.totalSlot}
                                             </span>
 
                                         </div>
@@ -246,9 +361,12 @@ const TutorsPage = () => {
 
                                         <Link
                                             href={`/tutors/${tutor._id}`}
+
                                             className="flex w-full items-center justify-center rounded-2xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-blue-700"
                                         >
+
                                             View Details
+
                                         </Link>
 
                                     </div>
