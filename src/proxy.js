@@ -9,12 +9,15 @@ export const proxy = (
   const pathname =
     request.nextUrl.pathname;
 
-  // BETTER AUTH SESSION COOKIE
+  // BETTER AUTH COOKIE
   const sessionToken =
 
     request.cookies.get(
-
       "better-auth.session_token"
+    ) ||
+
+    request.cookies.get(
+      "__Secure-better-auth.session_token"
     );
 
   const protectedRoutes = [
@@ -27,9 +30,7 @@ export const proxy = (
   ];
 
   const isProtected =
-
     protectedRoutes.some(
-
       (route) =>
 
         pathname.startsWith(
@@ -61,6 +62,7 @@ export const proxy = (
     );
   }
 
+  // LOGGED IN USER
   return NextResponse.next();
 };
 
