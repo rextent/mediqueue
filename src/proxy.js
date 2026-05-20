@@ -26,7 +26,7 @@ export const proxy = async (
         )
     );
 
-  // NOT PROTECTED
+  // PUBLIC ROUTE
   if (!isProtected) {
 
     return NextResponse.next();
@@ -34,11 +34,15 @@ export const proxy = async (
 
   try {
 
-    // BETTER AUTH SESSION CHECK
+    // DYNAMIC BASE URL
+    const baseUrl =
+      request.nextUrl.origin;
+
+    // GET SESSION
     const response =
       await fetch(
 
-        "https://mediqueue-server-f.vercel.app/api/auth/get-session",
+        `${baseUrl}/api/auth/get-session`,
 
         {
           headers: {

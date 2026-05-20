@@ -1,12 +1,6 @@
 "use client";
 
-import {
-
-    useState,
-
-    useEffect,
-
-} from "react";
+import { useState } from "react";
 
 import Link from "next/link";
 
@@ -16,14 +10,19 @@ import toast from "react-hot-toast";
 
 import {
 
+    useRouter,
+
     useSearchParams,
 
 } from "next/navigation";
 
 import { authClient }
-    from "@/lib/auth-client";
+from "@/lib/auth-client";
 
 const LoginForm = () => {
+
+    const router =
+        useRouter();
 
     const searchParams =
         useSearchParams();
@@ -42,35 +41,6 @@ const LoginForm = () => {
 
     const [loading, setLoading] =
         useState(false);
-
-    const {
-
-        data: session,
-
-        isPending,
-
-    } = authClient.useSession();
-
-    // AUTO REDIRECT
-    useEffect(() => {
-
-        if (
-            !isPending &&
-            session
-        ) {
-
-            window.location.href =
-                redirectPath;
-        }
-
-    }, [
-
-        session,
-
-        isPending,
-
-        redirectPath,
-    ]);
 
     // EMAIL LOGIN
     const handleLogin =
@@ -112,9 +82,14 @@ const LoginForm = () => {
                     "Login successful!"
                 );
 
-                // FULL RELOAD
-                window.location.href =
-                    redirectPath;
+                // DELAYED REDIRECT
+                setTimeout(() => {
+
+                    router.push(
+                        redirectPath
+                    );
+
+                }, 300);
 
             } catch (error) {
 
