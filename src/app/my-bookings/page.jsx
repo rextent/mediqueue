@@ -9,7 +9,7 @@ import axios from "axios";
 import { authClient } from "@/lib/auth-client";
 
 import PrivateRoute
-from "@/components/PrivateRoute";
+    from "@/components/PrivateRoute";
 
 const MyBookingsPage = () => {
 
@@ -21,6 +21,42 @@ const MyBookingsPage = () => {
 
     const [loading, setLoading] =
         useState(true);
+
+    const handleCancelBooking =
+        async (id) => {
+
+            const confirmDelete =
+                confirm(
+                    "Are you sure you want to cancel this booking?"
+                );
+
+            if (!confirmDelete) {
+
+                return;
+            }
+
+            try {
+
+                await axios.delete(
+                    `${process.env.NEXT_PUBLIC_SERVER_URL}/bookings/${id}`
+                );
+
+                // REMOVE FROM UI
+                const remainingBookings =
+                    bookings.filter(
+                        (booking) =>
+                            booking._id !== id
+                    );
+
+                setBookings(
+                    remainingBookings
+                );
+
+            } catch (error) {
+
+                console.log(error);
+            }
+        };
 
     useEffect(() => {
 
@@ -216,12 +252,14 @@ const MyBookingsPage = () => {
 
                                                 {/* CANCEL BUTTON */}
                                                 <button
+                                                    onClick={() =>
+                                                        handleCancelBooking(
+                                                            booking._id
+                                                        )
+                                                    }
+
                                                     className="cursor-pointer rounded-2xl bg-red-500 px-6 py-3 font-semibold text-white transition hover:bg-red-600"
-                                                >
-
-                                                    Cancel Booking
-
-                                                </button>
+                                                ></button>
 
                                             </div>
 
