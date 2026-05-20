@@ -9,7 +9,6 @@ export const proxy = (
   const pathname =
     request.nextUrl.pathname;
 
-  // PROTECTED ROUTES
   const protectedRoutes = [
 
     "/add-tutor",
@@ -27,13 +26,11 @@ export const proxy = (
         )
     );
 
-  // NOT PROTECTED
   if (!isProtected) {
 
     return NextResponse.next();
   }
 
-  // BETTER AUTH COOKIE
   const sessionToken =
 
     request.cookies.get(
@@ -44,7 +41,6 @@ export const proxy = (
       "better-auth.session_token"
     );
 
-  // NOT LOGGED IN
   if (!sessionToken) {
 
     const loginUrl =
@@ -65,7 +61,6 @@ export const proxy = (
     );
   }
 
-  // LOGGED IN
   return NextResponse.next();
 };
 

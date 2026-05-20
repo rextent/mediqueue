@@ -57,7 +57,7 @@ const LoginForm = () => {
                                 "Login successful!"
                             );
 
-                            // WAIT COOKIE
+                            // WAIT FOR COOKIE
                             setTimeout(() => {
 
                                 window.location.replace(
