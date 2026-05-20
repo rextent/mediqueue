@@ -4,19 +4,25 @@ import { useState } from "react";
 
 import Link from "next/link";
 
-import { useRouter } from "next/navigation";
-
-import { useSearchParams } from "next/navigation";
+import axios from "axios";
 
 import toast from "react-hot-toast";
 
-import axios from "axios";
+import {
 
-import { authClient } from "@/lib/auth-client";
+  useRouter,
+
+  useSearchParams,
+
+} from "next/navigation";
+
+import { authClient }
+from "@/lib/auth-client";
 
 const LoginForm = () => {
 
-  const router = useRouter();
+  const router =
+    useRouter();
 
   const searchParams =
     useSearchParams();
@@ -46,20 +52,17 @@ const LoginForm = () => {
 
       try {
 
-        const result =
+        await authClient.signIn.email({
 
-          await authClient.signIn.email({
+          email,
 
-            email,
+          password,
 
-            password,
+          callbackURL:
 
-            callbackURL:
-              window.location.origin +
-              redirectPath,
-          });
-
-        console.log(result);
+            window.location.origin +
+            redirectPath,
+        });
 
         // JWT TOKEN
         await axios.post(
@@ -108,6 +111,7 @@ const LoginForm = () => {
           provider: "google",
 
           callbackURL:
+
             window.location.origin +
             redirectPath,
         });
@@ -124,51 +128,80 @@ const LoginForm = () => {
 
   return (
 
-    <div className="min-h-screen flex items-center justify-center px-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-100 via-white to-slate-200 px-4 py-10">
 
-      <div className="w-full max-w-md bg-white rounded-3xl shadow-xl p-8">
+      <div className="w-full max-w-md rounded-3xl bg-white shadow-2xl border border-gray-100 p-8">
 
-        <h2 className="text-4xl font-bold text-center text-primary mb-3">
+        {/* TOP */}
 
-          Welcome Back
+        <div className="text-center mb-8">
 
-        </h2>
+          <h2 className="text-5xl font-bold text-indigo-600 mb-3">
 
-        <p className="text-center text-gray-500 mb-8">
+            Welcome Back
 
-          Login to continue learning.
+          </h2>
 
-        </p>
+          <p className="text-gray-500 text-base">
 
-        {/* GOOGLE LOGIN */}
+            Login to continue learning.
+
+          </p>
+
+        </div>
+
+        {/* GOOGLE BUTTON */}
 
         <button
 
           onClick={handleGoogleLogin}
 
-          className="btn btn-outline w-full mb-6"
+          className="w-full h-12 rounded-xl border border-gray-300 bg-white hover:bg-gray-50 transition-all duration-200 font-semibold text-gray-700 flex items-center justify-center gap-3 mb-6"
         >
+
+          <img
+
+            src="https://www.svgrepo.com/show/475656/google-color.svg"
+
+            alt="google"
+
+            className="w-5 h-5"
+          />
 
           Continue with Google
 
         </button>
 
-        <div className="divider">
+        {/* DIVIDER */}
 
-          OR
+        <div className="flex items-center gap-4 mb-6">
+
+          <div className="flex-1 h-[1px] bg-gray-200"></div>
+
+          <span className="text-sm text-gray-400 font-medium">
+
+            OR
+
+          </span>
+
+          <div className="flex-1 h-[1px] bg-gray-200"></div>
 
         </div>
 
         {/* LOGIN FORM */}
 
         <form
+
           onSubmit={handleLogin}
+
           className="space-y-5"
         >
 
+          {/* EMAIL */}
+
           <div>
 
-            <label className="label">
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
 
               Email Address
 
@@ -180,7 +213,7 @@ const LoginForm = () => {
 
               placeholder="hello@example.com"
 
-              className="input input-bordered w-full"
+              className="w-full h-12 rounded-xl border border-gray-300 bg-white px-4 text-black placeholder:text-gray-400 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all"
 
               value={email}
 
@@ -195,9 +228,11 @@ const LoginForm = () => {
 
           </div>
 
+          {/* PASSWORD */}
+
           <div>
 
-            <label className="label">
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
 
               Password
 
@@ -209,7 +244,7 @@ const LoginForm = () => {
 
               placeholder="********"
 
-              className="input input-bordered w-full"
+              className="w-full h-12 rounded-xl border border-gray-300 bg-white px-4 text-black placeholder:text-gray-400 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all"
 
               value={password}
 
@@ -224,13 +259,15 @@ const LoginForm = () => {
 
           </div>
 
+          {/* BUTTON */}
+
           <button
 
             type="submit"
 
             disabled={loading}
 
-            className="btn btn-primary w-full"
+            className="w-full h-12 rounded-xl bg-indigo-600 hover:bg-indigo-700 transition-all duration-200 text-white font-semibold shadow-lg"
           >
 
             {
@@ -246,7 +283,9 @@ const LoginForm = () => {
 
         </form>
 
-        <p className="text-center mt-6 text-sm">
+        {/* REGISTER */}
+
+        <p className="text-center text-sm text-gray-500 mt-7">
 
           Don&apos;t have an account?{" "}
 
@@ -254,7 +293,7 @@ const LoginForm = () => {
 
             href="/register"
 
-            className="text-primary font-semibold"
+            className="text-indigo-600 font-semibold hover:underline"
           >
 
             Register
