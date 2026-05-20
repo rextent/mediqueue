@@ -12,6 +12,9 @@ import { authClient } from "@/lib/auth-client";
 
 import { AlertDialog } from "@heroui/react";
 
+import PrivateRoute
+from "@/components/PrivateRoute";
+
 const MyTutorsPage = () => {
 
     const { data: session } =
@@ -379,7 +382,6 @@ const MyTutorsPage = () => {
                                         className="mt-8 flex justify-end gap-3"
                                     >
 
-                                        {/* CANCEL BUTTON */}
                                         <button
                                             onClick={() => {
 
@@ -395,7 +397,6 @@ const MyTutorsPage = () => {
 
                                         </button>
 
-                                        {/* DELETE BUTTON */}
                                         <button
                                             onClick={handleDelete}
                                             className="cursor-pointer rounded-xl bg-red-500 px-6 py-2.5 font-medium text-white transition hover:bg-red-600"
@@ -421,4 +422,16 @@ const MyTutorsPage = () => {
     );
 };
 
-export default MyTutorsPage;
+const MyTutorsWrapper = () => {
+
+    return (
+
+        <PrivateRoute>
+
+            <MyTutorsPage />
+
+        </PrivateRoute>
+    );
+};
+
+export default MyTutorsWrapper;

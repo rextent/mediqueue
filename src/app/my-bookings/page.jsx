@@ -8,6 +8,9 @@ import axios from "axios";
 
 import { authClient } from "@/lib/auth-client";
 
+import PrivateRoute
+from "@/components/PrivateRoute";
+
 const MyBookingsPage = () => {
 
     const { data: session } =
@@ -25,6 +28,7 @@ const MyBookingsPage = () => {
             async () => {
 
                 if (!session?.user?.email) {
+
                     return;
                 }
 
@@ -52,6 +56,7 @@ const MyBookingsPage = () => {
 
     }, [session]);
 
+    // LOADING
     if (loading) {
 
         return (
@@ -70,6 +75,7 @@ const MyBookingsPage = () => {
 
             <div className="mx-auto max-w-7xl">
 
+                {/* HEADER */}
                 <div className="mb-10">
 
                     <h1 className="text-4xl font-bold text-slate-900">
@@ -235,4 +241,16 @@ const MyBookingsPage = () => {
     );
 };
 
-export default MyBookingsPage;
+const MyBookingsWrapper = () => {
+
+    return (
+
+        <PrivateRoute>
+
+            <MyBookingsPage />
+
+        </PrivateRoute>
+    );
+};
+
+export default MyBookingsWrapper;

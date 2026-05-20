@@ -6,6 +6,9 @@ import { authClient } from "@/lib/auth-client";
 
 import { useRouter } from "next/navigation";
 
+import PrivateRoute
+from "@/components/PrivateRoute";
+
 const AddTutorPage = () => {
 
   const router = useRouter();
@@ -14,7 +17,7 @@ const AddTutorPage = () => {
 
     e.preventDefault();
 
-    // GET SESSION ONLY WHEN SUBMIT
+    // GET SESSION
     const session =
       await authClient.getSession();
 
@@ -68,8 +71,6 @@ const AddTutorPage = () => {
         "active",
     };
 
-    console.log(tutorData);
-
     try {
 
       const res = await fetch(
@@ -94,8 +95,6 @@ const AddTutorPage = () => {
 
       const data =
         await res.json();
-
-      console.log(data);
 
       if (data.insertedId) {
 
@@ -493,4 +492,16 @@ const AddTutorPage = () => {
   );
 };
 
-export default AddTutorPage;
+const AddTutorWrapper = () => {
+
+  return (
+
+    <PrivateRoute>
+
+      <AddTutorPage />
+
+    </PrivateRoute>
+  );
+};
+
+export default AddTutorWrapper;
