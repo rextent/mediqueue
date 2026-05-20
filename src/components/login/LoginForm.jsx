@@ -16,8 +16,6 @@ import toast from "react-hot-toast";
 
 import {
 
-    useRouter,
-
     useSearchParams,
 
 } from "next/navigation";
@@ -26,9 +24,6 @@ import { authClient }
     from "@/lib/auth-client";
 
 const LoginForm = () => {
-
-    const router =
-        useRouter();
 
     const searchParams =
         useSearchParams();
@@ -56,6 +51,7 @@ const LoginForm = () => {
 
     } = authClient.useSession();
 
+    // AUTO REDIRECT
     useEffect(() => {
 
         if (
@@ -63,9 +59,8 @@ const LoginForm = () => {
             session
         ) {
 
-            router.push(
-                redirectPath
-            );
+            window.location.href =
+                redirectPath;
         }
 
     }, [
@@ -74,12 +69,8 @@ const LoginForm = () => {
 
         isPending,
 
-        router,
-
         redirectPath,
     ]);
-
-
 
     // EMAIL LOGIN
     const handleLogin =
@@ -121,9 +112,9 @@ const LoginForm = () => {
                     "Login successful!"
                 );
 
-                router.push(
-                    redirectPath
-                );
+                // FULL RELOAD
+                window.location.href =
+                    redirectPath;
 
             } catch (error) {
 
