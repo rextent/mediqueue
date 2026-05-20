@@ -9,6 +9,7 @@ export const proxy = (
   const pathname =
     request.nextUrl.pathname;
 
+  // PROTECTED ROUTES
   const protectedRoutes = [
 
     "/add-tutor",
