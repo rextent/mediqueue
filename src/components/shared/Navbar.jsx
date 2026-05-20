@@ -2,8 +2,13 @@
 
 import Link from "next/link";
 
-import { HiOutlineMenuAlt3 }
-from "react-icons/hi";
+import {
+    HiOutlineMenuAlt3,
+} from "react-icons/hi";
+
+import {
+    FaUserCircle,
+} from "react-icons/fa";
 
 import { authClient }
 from "@/lib/auth-client";
@@ -145,28 +150,79 @@ export default function AppNavbar() {
                     {
                         session?.user ? (
 
-                            <div className="flex items-center gap-2 sm:gap-3">
+                            <div className="dropdown dropdown-end">
 
-                                <img
-                                    src={
-                                        session.user.image ||
-                                        "/default-user.png"
-                                    }
-
-                                    alt="user"
-
-                                    className="h-10 w-10 rounded-full border-2 border-white object-cover shadow sm:h-11 sm:w-11"
-                                />
-
-                                <button
-                                    onClick={handleLogout}
-
-                                    className="btn h-10 min-h-0 rounded-xl border-0 bg-red-500 px-4 text-sm text-white hover:bg-red-600 sm:h-11 sm:px-6 sm:text-base"
+                                <label
+                                    tabIndex={0}
+                                    className="cursor-pointer"
                                 >
 
-                                    Logout
+                                    <img
+                                        src={
+                                            session.user.image ||
+                                            "/default-user.png"
+                                        }
 
-                                </button>
+                                        alt="user"
+
+                                        className="h-11 w-11 rounded-full border-2 border-white object-cover shadow"
+                                    />
+
+                                </label>
+
+                                <ul
+                                    tabIndex={0}
+                                    className="menu dropdown-content z-[100] mt-3 w-56 rounded-2xl border border-gray-100 bg-white p-3 shadow-2xl"
+                                >
+
+                                    <div className="mb-3 border-b border-gray-100 pb-3">
+
+                                        <h3 className="font-semibold text-slate-900">
+
+                                            {
+                                                session.user.name
+                                            }
+
+                                        </h3>
+
+                                        <p className="truncate text-sm text-gray-500">
+
+                                            {
+                                                session.user.email
+                                            }
+
+                                        </p>
+
+                                    </div>
+
+                                    <li>
+
+                                        <Link
+                                            href="/my-account"
+                                        >
+
+                                            <FaUserCircle />
+
+                                            My Account
+
+                                        </Link>
+
+                                    </li>
+
+                                    <li>
+
+                                        <button
+                                            onClick={handleLogout}
+                                            className="text-red-500"
+                                        >
+
+                                            Logout
+
+                                        </button>
+
+                                    </li>
+
+                                </ul>
 
                             </div>
 
