@@ -9,6 +9,10 @@ import Image from "next/image";
 
 import Link from "next/link";
 
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
+
 const TutorsPage = () => {
 
     const [tutors, setTutors] =
@@ -34,10 +38,10 @@ const TutorsPage = () => {
 
     // DATE FILTER
     const [startDate, setStartDate] =
-        useState("");
+        useState(null);
 
     const [endDate, setEndDate] =
-        useState("");
+        useState(null);
 
     // DEBOUNCE
     useEffect(() => {
@@ -76,7 +80,7 @@ const TutorsPage = () => {
                     ) {
 
                         url +=
-                            `&startDate=${startDate}&endDate=${endDate}`;
+                            `&startDate=${startDate.toISOString().split("T")[0]}&endDate=${endDate.toISOString().split("T")[0]}`;
                     }
 
                     const res =
@@ -186,18 +190,18 @@ const TutorsPage = () => {
 
                             </label>
 
-                            <input
-                                type="date"
+                            <DatePicker
+                                selected={startDate}
 
-                                value={startDate}
-
-                                onChange={(e) =>
-                                    setStartDate(
-                                        e.target.value
-                                    )
+                                onChange={(date) =>
+                                    setStartDate(date)
                                 }
 
+                                placeholderText="Select start date"
+
                                 className="input input-bordered h-12 w-full rounded-xl border-gray-200 bg-slate-50"
+
+                                dateFormat="yyyy-MM-dd"
                             />
 
                         </div>
@@ -211,18 +215,18 @@ const TutorsPage = () => {
 
                             </label>
 
-                            <input
-                                type="date"
+                            <DatePicker
+                                selected={endDate}
 
-                                value={endDate}
-
-                                onChange={(e) =>
-                                    setEndDate(
-                                        e.target.value
-                                    )
+                                onChange={(date) =>
+                                    setEndDate(date)
                                 }
 
+                                placeholderText="Select end date"
+
                                 className="input input-bordered h-12 w-full rounded-xl border-gray-200 bg-slate-50"
+
+                                dateFormat="yyyy-MM-dd"
                             />
 
                         </div>
