@@ -11,10 +11,10 @@ import {
 } from "react-icons/fa";
 
 import { authClient }
-from "@/lib/auth-client";
+    from "@/lib/auth-client";
 
 import { toast }
-from "react-toastify";
+    from "react-toastify";
 
 export default function AppNavbar() {
 
@@ -154,56 +154,84 @@ export default function AppNavbar() {
 
                                 <label
                                     tabIndex={0}
-                                    className="cursor-pointer"
+
+                                    className="flex cursor-pointer items-center gap-3 rounded-full border border-gray-200 bg-white px-3 py-2 shadow-sm transition hover:shadow-md"
                                 >
 
-                                    <img
-                                        src={
-                                            session.user.image ||
-                                            "/default-user.png"
-                                        }
+                                    {/* IMAGE */}
+                                    <div className="relative h-11 w-11 overflow-hidden rounded-full">
 
-                                        alt="user"
+                                        <Image
+                                            src={
+                                                session?.user?.image ||
+                                                "/default-user.png"
+                                            }
 
-                                        className="h-11 w-11 rounded-full border-2 border-white object-cover shadow-md transition duration-200 hover:scale-105"
-                                    />
+                                            alt="User"
 
-                                </label>
+                                            fill
 
-                                <ul
-                                    tabIndex={0}
-                                    className="menu dropdown-content z-[100] mt-4 w-60 rounded-3xl border border-gray-100 bg-white p-4 shadow-2xl"
-                                >
+                                            className="object-cover"
+                                        />
 
-                                    {/* USER INFO */}
-                                    <div className="mb-3 border-b border-gray-100 pb-3">
+                                    </div>
 
-                                        <h3 className="font-semibold text-slate-900">
+                                    {/* NAME */}
+                                    <div className="hidden text-left lg:block">
+
+                                        <h3 className="max-w-[140px] truncate text-sm font-semibold text-slate-900">
 
                                             {
-                                                session.user.name
+                                                session?.user?.name
                                             }
 
                                         </h3>
 
-                                        <p className="truncate text-sm text-gray-500">
+                                        <p className="text-xs text-gray-500">
 
-                                            {
-                                                session.user.email
-                                            }
+                                            My Account
 
                                         </p>
 
                                     </div>
 
-                                    {/* ACCOUNT */}
+                                    {/* ARROW */}
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+
+                                        className="hidden h-4 w-4 text-gray-500 lg:block"
+
+                                        fill="none"
+
+                                        viewBox="0 0 24 24"
+
+                                        stroke="currentColor"
+                                    >
+
+                                        <path
+                                            strokeLinecap="round"
+
+                                            strokeLinejoin="round"
+
+                                            strokeWidth={2}
+
+                                            d="M19 9l-7 7-7-7"
+                                        />
+
+                                    </svg>
+
+                                </label>
+
+                                {/* DROPDOWN */}
+                                <ul
+                                    tabIndex={0}
+
+                                    className="menu dropdown-content z-[100] mt-3 w-56 rounded-2xl border border-gray-100 bg-white p-3 shadow-xl"
+                                >
+
                                     <li>
 
-                                        <Link
-                                            href="/my-account"
-                                        >
-
-                                            <FaUserCircle />
+                                        <Link href="/my-account">
 
                                             My Account
 
@@ -211,11 +239,11 @@ export default function AppNavbar() {
 
                                     </li>
 
-                                    {/* LOGOUT */}
                                     <li>
 
                                         <button
                                             onClick={handleLogout}
+
                                             className="text-red-500"
                                         >
 
