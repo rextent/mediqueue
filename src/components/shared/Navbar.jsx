@@ -66,19 +66,19 @@ export default function AppNavbar() {
 
     return (
 
-        <div className="sticky top-0 z-50 bg-white/80 backdrop-blur-lg">
+        <div className="sticky top-0 z-50 border-b border-gray-100 bg-white/90 backdrop-blur-lg">
 
-            <div className="navbar container-width py-2">
+            <div className="navbar mx-auto max-w-7xl px-3 py-2 lg:px-6">
 
                 {/* LEFT */}
-                <div className="navbar-start">
+                <div className="navbar-start gap-2">
 
                     {/* MOBILE MENU */}
                     <div className="dropdown lg:hidden">
 
                         <label
                             tabIndex={0}
-                            className="btn btn-ghost"
+                            className="btn btn-ghost btn-sm"
                         >
 
                             <HiOutlineMenuAlt3 className="text-2xl" />
@@ -87,7 +87,7 @@ export default function AppNavbar() {
 
                         <ul
                             tabIndex={0}
-                            className="menu dropdown-content z-[1] mt-3 w-56 rounded-2xl bg-base-100 p-3 shadow-xl"
+                            className="menu dropdown-content z-[100] mt-3 w-60 rounded-2xl border border-gray-100 bg-white p-3 shadow-2xl"
                         >
 
                             {navLinks}
@@ -99,24 +99,24 @@ export default function AppNavbar() {
                     {/* LOGO */}
                     <Link
                         href="/"
-                        className="flex items-center gap-3"
+                        className="flex items-center gap-2 sm:gap-3"
                     >
 
-                        <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-r from-blue-600 to-cyan-500 text-xl font-bold text-white">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-r from-blue-600 to-cyan-500 text-lg font-bold text-white sm:h-11 sm:w-11 sm:text-xl">
 
                             M
 
                         </div>
 
-                        <div>
+                        <div className="leading-tight">
 
-                            <h1 className="font-heading text-2xl font-bold">
+                            <h1 className="font-heading text-lg font-bold sm:text-2xl">
 
                                 MediQueue
 
                             </h1>
 
-                            <p className="text-xs text-gray-500">
+                            <p className="hidden text-xs text-gray-500 sm:block">
 
                                 Tutor Booking Platform
 
@@ -145,7 +145,7 @@ export default function AppNavbar() {
                     {
                         session?.user ? (
 
-                            <div className="flex items-center gap-3">
+                            <div className="flex items-center gap-2 sm:gap-3">
 
                                 <img
                                     src={
@@ -155,13 +155,13 @@ export default function AppNavbar() {
 
                                     alt="user"
 
-                                    className="h-11 w-11 rounded-full border object-cover"
+                                    className="h-10 w-10 rounded-full border-2 border-white object-cover shadow sm:h-11 sm:w-11"
                                 />
 
                                 <button
                                     onClick={handleLogout}
 
-                                    className="btn rounded-xl border-0 bg-red-500 px-6 text-white hover:bg-red-600"
+                                    className="btn h-10 min-h-0 rounded-xl border-0 bg-red-500 px-4 text-sm text-white hover:bg-red-600 sm:h-11 sm:px-6 sm:text-base"
                                 >
 
                                     Logout
@@ -172,12 +172,12 @@ export default function AppNavbar() {
 
                         ) : (
 
-                            <div className="flex items-center gap-3">
+                            <div className="flex items-center gap-2">
 
                                 <Link
                                     href="/login"
 
-                                    className="btn rounded-xl border border-blue-200 bg-white px-6 text-blue-600 hover:bg-blue-50"
+                                    className="btn h-10 min-h-0 rounded-xl border border-blue-200 bg-white px-4 text-sm text-blue-600 hover:bg-blue-50 sm:h-11 sm:px-6 sm:text-base"
                                 >
 
                                     Login
@@ -187,7 +187,7 @@ export default function AppNavbar() {
                                 <Link
                                     href="/register"
 
-                                    className="btn rounded-xl border-0 bg-blue-600 px-6 text-white hover:bg-blue-700"
+                                    className="btn h-10 min-h-0 rounded-xl border-0 bg-blue-600 px-4 text-sm text-white hover:bg-blue-700 sm:h-11 sm:px-6 sm:text-base"
                                 >
 
                                     Register
