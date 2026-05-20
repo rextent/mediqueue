@@ -71,7 +71,7 @@ export default function AppNavbar() {
             <div className="navbar mx-auto max-w-7xl px-3 py-2 lg:px-6">
 
                 {/* LEFT */}
-                <div className="navbar-start gap-2">
+                <div className="navbar-start min-w-0 gap-2">
 
                     {/* MOBILE MENU */}
                     <div className="dropdown lg:hidden">
@@ -99,7 +99,7 @@ export default function AppNavbar() {
                     {/* LOGO */}
                     <Link
                         href="/"
-                        className="flex items-center gap-2 sm:gap-3"
+                        className="flex min-w-0 items-center gap-2 sm:gap-3"
                     >
 
                         <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-r from-blue-600 to-cyan-500 text-lg font-bold text-white sm:h-11 sm:w-11 sm:text-xl">
@@ -110,7 +110,7 @@ export default function AppNavbar() {
 
                         <div className="leading-tight">
 
-                            <h1 className="font-heading text-lg font-bold sm:text-2xl">
+                            <h1 className="max-w-[110px] overflow-hidden text-ellipsis whitespace-nowrap font-heading text-lg font-bold sm:max-w-full sm:text-2xl">
 
                                 MediQueue
 
@@ -140,7 +140,7 @@ export default function AppNavbar() {
                 </div>
 
                 {/* RIGHT */}
-                <div className="navbar-end">
+                <div className="navbar-end flex-shrink-0">
 
                     {
                         session?.user ? (
