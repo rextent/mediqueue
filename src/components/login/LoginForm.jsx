@@ -7,9 +7,7 @@ import Link from "next/link";
 import toast from "react-hot-toast";
 
 import {
-
     useSearchParams,
-
 } from "next/navigation";
 
 import { authClient }
@@ -50,19 +48,26 @@ const LoginForm = () => {
                     email,
 
                     password,
+
+                    fetchOptions: {
+
+                        onSuccess: () => {
+
+                            toast.success(
+                                "Login successful!"
+                            );
+
+                            // WAIT COOKIE
+                            setTimeout(() => {
+
+                                window.location.replace(
+                                    redirectPath
+                                );
+
+                            }, 800);
+                        },
+                    },
                 });
-
-                toast.success(
-                    "Login successful!"
-                );
-
-                // WAIT FOR COOKIE
-                setTimeout(() => {
-
-                    window.location.href =
-                        redirectPath;
-
-                }, 1000);
 
             } catch (error) {
 
@@ -87,6 +92,9 @@ const LoginForm = () => {
                 await authClient.signIn.social({
 
                     provider: "google",
+
+                    callbackURL:
+                        redirectPath,
                 });
 
             } catch (error) {

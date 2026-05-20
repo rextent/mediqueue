@@ -1,11 +1,17 @@
-import { createAuthClient } from "better-auth/react";
+import {
+  createAuthClient,
+} from "better-auth/react";
 
 export const authClient =
-createAuthClient({
+  createAuthClient({
+
     baseURL:
-        "https://mediqueue-server-f.vercel.app",
+      process.env
+        .NEXT_PUBLIC_SERVER_URL,
 
     fetchOptions: {
-        credentials: "include",
+
+      credentials:
+        "include",
     },
-});
+  });
