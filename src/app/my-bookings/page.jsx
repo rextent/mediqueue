@@ -259,7 +259,7 @@ const MyBookingsPage = () => {
                                                     }
 
                                                     className="cursor-pointer rounded-2xl bg-red-500 px-6 py-3 font-semibold text-white transition hover:bg-red-600"
-                                                ></button>
+                                                >Cancel Booking</button>
 
                                             </div>
 
