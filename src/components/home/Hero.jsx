@@ -111,7 +111,7 @@ export default function Hero() {
             />
 
             {/* FLOATING CARD 1 */}
-            <div className="absolute -left-10 top-10 rounded-2xl bg-white p-4 shadow-xl">
+            <div className="absolute -left-5 top-10 rounded-2xl bg-white p-4 shadow-xl">
               <h4 className="text-lg font-bold text-slate-800">
                 Live Sessions
               </h4>
