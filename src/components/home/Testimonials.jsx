@@ -10,7 +10,7 @@ const testimonials = [
     id: 1,
     name: "Ariana Smith",
     role: "HSC Student",
-    image: "/default-tutor.png",
+    image: "/david.png",
     review:
       "MediQueue helped me find an excellent math tutor very quickly. The booking process was smooth and professional.",
   },
@@ -19,7 +19,7 @@ const testimonials = [
     id: 2,
     name: "Daniel Brown",
     role: "University Student",
-    image: "/default-tutor.png",
+    image: "/james.png",
     review:
       "I really loved the flexible scheduling system. The platform feels modern and easy to use for students.",
   },
@@ -28,7 +28,7 @@ const testimonials = [
     id: 3,
     name: "Sophia Wilson",
     role: "SSC Candidate",
-    image: "/default-tutor.png",
+    image: "/sophia.png",
     review:
       "The tutors are very professional and supportive. I improved my academic performance significantly.",
   },
