@@ -17,7 +17,7 @@ import {
 } from "next/navigation";
 
 import { authClient }
-from "@/lib/auth-client";
+    from "@/lib/auth-client";
 
 const LoginForm = () => {
 
@@ -85,9 +85,8 @@ const LoginForm = () => {
                 // DELAYED REDIRECT
                 setTimeout(() => {
 
-                    router.push(
-                        redirectPath
-                    );
+                    window.location.href =
+                        redirectPath;
 
                 }, 300);
 
