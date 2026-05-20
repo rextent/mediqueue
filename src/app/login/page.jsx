@@ -12,8 +12,20 @@ import { toast } from "react-toastify";
 
 import { authClient } from "@/lib/auth-client";
 
+import {
+  useSearchParams
+} from "next/navigation";
+
 
 export default function LoginPage() {
+
+  const searchParams =
+  useSearchParams();
+
+const redirect =
+  searchParams.get(
+    "redirect"
+  ) || "/";
 
   const [email, setEmail] =
     useState("");
@@ -39,7 +51,15 @@ export default function LoginPage() {
           email,
           password,
 
-          callbackURL: window.location.origin
+          callbackURL: window.location.origin,
+          fetchOptions: {
+
+            onSuccess: () => {
+
+              window.location.href =
+                "/";
+            },
+          },
 
         });
 
