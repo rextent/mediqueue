@@ -8,7 +8,6 @@ import { toast } from "react-toastify";
 export default function AppNavbar() {
     const { data: session } = authClient.useSession();
 
-    console.log(session);
     
 
     const handleLogout = async () => {

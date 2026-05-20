@@ -58,10 +58,7 @@ const LoginForm = () => {
 
                     password,
 
-                    callbackURL:
 
-                        window.location.origin +
-                        redirectPath,
                 });
 
                 // JWT TOKEN
@@ -81,14 +78,8 @@ const LoginForm = () => {
                 toast.success(
                     "Login successful!"
                 );
-
-                // DELAYED REDIRECT
-                setTimeout(() => {
-
-                    window.location.href =
-                        redirectPath;
-
-                }, 1200);
+                window.location.href =
+                    redirectPath;
 
             } catch (error) {
 
@@ -114,9 +105,7 @@ const LoginForm = () => {
 
                     provider: "google",
 
-                    callbackURL:
 
-                        `${window.location.origin}${redirectPath}`,
                 });
 
             } catch (error) {
