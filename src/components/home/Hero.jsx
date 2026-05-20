@@ -107,7 +107,7 @@ export default function Hero() {
             alt="Tutor Booking"
             width={700}
             height={600}
-            className="h-[500px] w-full rounded-[30px] object-cover lg:h-[580px]"
+            className="h-full w-full rounded-[30px] object-contain lg:h-[580px]"
             />
 
             {/* FLOATING CARD 1 */}
