@@ -94,7 +94,7 @@ const LoginForm = () => {
                     provider: "google",
 
                     callbackURL:
-                        redirectPath,
+                        `${window.location.origin}${redirectPath}`,
                 });
 
             } catch (error) {
