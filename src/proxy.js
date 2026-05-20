@@ -2,23 +2,12 @@ import {
   NextResponse,
 } from "next/server";
 
-export const proxy = (
+export const proxy = async (
   request
 ) => {
 
   const pathname =
     request.nextUrl.pathname;
-
-  // BETTER AUTH COOKIE
-  const sessionToken =
-
-    request.cookies.get(
-      "better-auth.session_token"
-    ) ||
-
-    request.cookies.get(
-      "__Secure-better-auth.session_token"
-    );
 
   const protectedRoutes = [
 
@@ -32,38 +21,75 @@ export const proxy = (
   const isProtected =
     protectedRoutes.some(
       (route) =>
-
         pathname.startsWith(
           route
         )
     );
 
-  // NOT LOGGED IN
-  if (
-    isProtected &&
-    !sessionToken
-  ) {
+  // NOT PROTECTED
+  if (!isProtected) {
 
-    const loginUrl =
+    return NextResponse.next();
+  }
+
+  try {
+
+    // BETTER AUTH SESSION CHECK
+    const response =
+      await fetch(
+
+        "https://mediqueue-server-f.vercel.app/api/auth/get-session",
+
+        {
+          headers: {
+
+            cookie:
+              request.headers.get(
+                "cookie"
+              ) || "",
+          },
+        }
+      );
+
+    const session =
+      await response.json();
+
+    // NOT LOGGED IN
+    if (!session?.user) {
+
+      const loginUrl =
+        new URL(
+          "/login",
+          request.url
+        );
+
+      loginUrl.searchParams.set(
+
+        "redirect",
+
+        pathname
+      );
+
+      return NextResponse.redirect(
+        loginUrl
+      );
+    }
+
+    // LOGGED IN
+    return NextResponse.next();
+
+  } catch (error) {
+
+    console.log(error);
+
+    return NextResponse.redirect(
+
       new URL(
         "/login",
         request.url
-      );
-
-    loginUrl.searchParams.set(
-
-      "redirect",
-
-      pathname
-    );
-
-    return NextResponse.redirect(
-      loginUrl
+      )
     );
   }
-
-  // LOGGED IN USER
-  return NextResponse.next();
 };
 
 export const config = {
