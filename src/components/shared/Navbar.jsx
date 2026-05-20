@@ -6,15 +6,13 @@ import {
     HiOutlineMenuAlt3,
 } from "react-icons/hi";
 
-import {
-    FaUserCircle,
-} from "react-icons/fa";
 
 import { authClient }
     from "@/lib/auth-client";
 
 import { toast }
     from "react-toastify";
+import Image from "next/image";
 
 export default function AppNavbar() {
 
