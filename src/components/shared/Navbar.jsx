@@ -21,6 +21,16 @@ export default function AppNavbar() {
 
     const handleLogout =
         async () => {
+            await axios.post(
+
+                `${process.env.NEXT_PUBLIC_SERVER_URL}/logout`,
+
+                {},
+
+                {
+                    withCredentials: true,
+                }
+            );
 
             await authClient.signOut();
 
