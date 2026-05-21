@@ -11,7 +11,7 @@ import {
 } from "next/navigation";
 
 import { authClient }
-    from "@/lib/auth-client";
+from "@/lib/auth-client";
 
 const LoginForm = () => {
 
@@ -51,24 +51,10 @@ const LoginForm = () => {
 
                     fetchOptions: {
 
-                        onSuccess: async () => {
+                        onSuccess: () => {
 
                             toast.success(
                                 "Login successful!"
-                            );
-
-                            // CREATE JWT COOKIE
-                            await axios.post(
-
-                                `${process.env.NEXT_PUBLIC_SERVER_URL}/jwt`,
-
-                                {
-                                    email,
-                                },
-
-                                {
-                                    withCredentials: true,
-                                }
                             );
 
                             // WAIT FOR COOKIE
