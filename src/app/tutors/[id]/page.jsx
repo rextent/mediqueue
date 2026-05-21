@@ -2,6 +2,8 @@
 
 import { use } from "react";
 
+import PrivateRoute from "@/components/PrivateRoute";
+
 import {
     useEffect,
     useState,
@@ -17,7 +19,7 @@ import {
     authClient,
 } from "@/lib/auth-client";
 
-const TutorDetailsPage = ({
+const TutorDetailsContent = ({
     params,
 }) => {
 
@@ -746,6 +748,20 @@ const TutorDetailsPage = ({
             }
 
         </div>
+    );
+};
+
+const TutorDetailsPage = (props) => {
+
+    return (
+
+        <PrivateRoute>
+
+            <TutorDetailsContent
+                {...props}
+            />
+
+        </PrivateRoute>
     );
 };
 
