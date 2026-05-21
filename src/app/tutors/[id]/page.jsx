@@ -17,6 +17,9 @@ import {
     authClient,
 } from "@/lib/auth-client";
 
+import PrivateRoute
+from "@/components/PrivateRoute";
+
 const TutorDetailsPage = ({
     params,
 }) => {
@@ -749,4 +752,19 @@ const TutorDetailsPage = ({
     );
 };
 
-export default TutorDetailsPage;
+const TutorDetailsWrapper =
+    (props) => {
+
+        return (
+
+            <PrivateRoute>
+
+                <TutorDetailsPage
+                    {...props}
+                />
+
+            </PrivateRoute>
+        );
+    };
+
+export default TutorDetailsWrapper;
