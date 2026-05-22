@@ -104,37 +104,12 @@ export default function Categories() {
 
               viewport={{ once: true }}
 
-              className="
-          group
-          relative
-          overflow-hidden
-          rounded-[28px]
-          border
-          border-gray-100
-          bg-white
-          p-7
-          shadow-lg
-          transition-all
-          duration-300
-          hover:-translate-y-1
-          hover:shadow-2xl
-          "
+              className="group relative overflow-hidden rounded-[28px] border border-gray-100 bg-white p-7 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
             >
 
               {/* BACKGROUND GLOW */}
               <div
-                className={`
-            absolute
-            -right-10
-            -top-10
-            h-32
-            w-32
-            rounded-full
-            bg-gradient-to-r
-            ${category.color}
-            opacity-10
-            blur-3xl
-            `}
+                className={`absolute -right-10 -top-10 h-32 w-32 rounded-full bg-gradient-to-r ${category.color} opacity-10 blur-3xl`}
               />
 
               {/* TOP */}
@@ -142,19 +117,7 @@ export default function Categories() {
 
                 {/* ICON */}
                 <div
-                  className={`
-              flex
-              h-16
-              w-16
-              items-center
-              justify-center
-              rounded-2xl
-              bg-gradient-to-r
-              ${category.color}
-              text-2xl
-              text-white
-              shadow-lg
-              `}
+                  className={`flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-r ${category.color} text-2xl text-white shadow-lg`}
                 >
                   {category.icon}
                 </div>
@@ -180,18 +143,7 @@ export default function Categories() {
 
                 {/* BUTTON */}
                 <button
-                  className="
-              mt-6
-              inline-flex
-              items-center
-              gap-2
-              text-sm
-              font-semibold
-              text-blue-600
-              transition-all
-              duration-300
-              hover:gap-3
-              "
+                  className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-blue-600 transition-all duration-300 hover:gap-3"
                 >
                   Explore Category
 
