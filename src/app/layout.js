@@ -25,17 +25,9 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <body
-        className={`${inter.variable}
-    ${poppins.variable}
-    font-body
-
-    bg-white
-    text-black
-
-    dark:bg-slate-950
-    dark:text-white`}
+        className={`${inter.variable} ${poppins.variable} font-body`}
       >
         <Providers>
           <AppNavbar/>

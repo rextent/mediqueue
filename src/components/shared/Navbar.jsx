@@ -14,18 +14,7 @@ import { toast }
     from "react-toastify";
 import Image from "next/image";
 
-import {
-    useTheme,
-} from "next-themes";
-
-
-
 export default function AppNavbar() {
-
-    const {
-        theme,
-        setTheme,
-    } = useTheme();
 
     const { data: session } =
         authClient.useSession();
@@ -80,16 +69,7 @@ export default function AppNavbar() {
 
     return (
 
-        <div className="sticky
-top-0
-z-50
-border-b
-border-gray-100
-bg-white/90
-backdrop-blur-lg
-
-dark:border-slate-800
-dark:bg-slate-950/90">
+        <div className="sticky top-0 z-50 border-b border-gray-100 bg-white/90 backdrop-blur-lg">
 
             <div className="navbar mx-auto h-[78px] w-full max-w-[1400px] px-4 lg:px-8">
 
@@ -110,21 +90,7 @@ dark:bg-slate-950/90">
 
                         <ul
                             tabIndex={0}
-                            className="menu
-dropdown-content
-z-[100]
-mt-3
-w-64
-rounded-3xl
-border
-border-gray-100
-bg-white
-p-4
-shadow-2xl
-
-dark:border-slate-700
-dark:bg-slate-900
-dark:text-white"
+                            className="menu dropdown-content z-[100] mt-3 w-64 rounded-3xl border border-gray-100 bg-white p-4 shadow-2xl"
                         >
 
                             {navLinks}
@@ -147,29 +113,13 @@ dark:text-white"
 
                         <div className="min-w-0 leading-tight">
 
-                            <h1 className="max-w-[125px]
-overflow-hidden
-text-ellipsis
-whitespace-nowrap
-font-heading
-text-xl
-font-bold
-text-slate-900
-sm:max-w-full
-sm:text-[34px]
-
-dark:text-white">
+                            <h1 className="max-w-[125px] overflow-hidden text-ellipsis whitespace-nowrap font-heading text-xl font-bold text-slate-900 sm:max-w-full sm:text-[34px]">
 
                                 MediQueue
 
                             </h1>
 
-                            <p className="hidden
-text-xs
-text-gray-500
-sm:block
-
-dark:text-gray-400">
+                            <p className="hidden text-xs text-gray-500 sm:block">
 
                                 Tutor Booking Platform
 
@@ -184,17 +134,7 @@ dark:text-gray-400">
                 {/* CENTER */}
                 <div className="navbar-center hidden flex-[1.3] justify-center lg:flex">
 
-                    <ul className="menu
-menu-horizontal
-flex-nowrap
-gap-1
-px-1
-text-[15px]
-font-medium
-text-slate-700
-xl:gap-3
-
-dark:text-gray-200">
+                    <ul className="menu menu-horizontal flex-nowrap gap-1 px-1 text-[15px] font-medium text-slate-700 xl:gap-3">
 
                         {navLinks}
 
@@ -213,22 +153,7 @@ dark:text-gray-200">
                                 <label
                                     tabIndex={0}
 
-                                    className="flex
-cursor-pointer
-items-center
-gap-3
-rounded-full
-border
-border-gray-200
-bg-white
-px-3
-py-2
-shadow-sm
-transition
-hover:shadow-md
-
-dark:border-slate-700
-dark:bg-slate-900"
+                                    className="flex cursor-pointer items-center gap-3 rounded-full border border-gray-200 bg-white px-3 py-2 shadow-sm transition hover:shadow-md"
                                 >
 
                                     {/* IMAGE */}
@@ -252,13 +177,7 @@ dark:bg-slate-900"
                                     {/* NAME */}
                                     <div className="hidden text-left lg:block">
 
-                                        <h3 className="max-w-[140px]
-truncate
-text-sm
-font-semibold
-text-slate-900
-
-dark:text-white">
+                                        <h3 className="max-w-[140px] truncate text-sm font-semibold text-slate-900">
 
                                             {
                                                 session?.user?.name
@@ -266,10 +185,7 @@ dark:text-white">
 
                                         </h3>
 
-                                        <p className="text-xs
-text-gray-500
-
-dark:text-gray-400">
+                                        <p className="text-xs text-gray-500">
 
                                             My Account
 
@@ -308,21 +224,7 @@ dark:text-gray-400">
                                 <ul
                                     tabIndex={0}
 
-                                    className="menu
-dropdown-content
-z-[100]
-mt-3
-w-56
-rounded-2xl
-border
-border-gray-100
-bg-white
-p-3
-shadow-xl
-
-dark:border-slate-700
-dark:bg-slate-900
-dark:text-white"
+                                    className="menu dropdown-content z-[100] mt-3 w-56 rounded-2xl border border-gray-100 bg-white p-3 shadow-xl"
                                 >
 
                                     <li>
@@ -356,27 +258,6 @@ dark:text-white"
                         ) : (
 
                             <div className="flex items-center gap-2">
-
-                                <button
-
-                                    onClick={() =>
-                                        setTheme(
-                                            theme === "dark"
-                                                ? "light"
-                                                : "dark"
-                                        )
-                                    }
-
-                                    className="px-4 py-2 rounded-xl bg-black text-white dark:bg-white dark:text-black"
-                                >
-
-                                    {
-                                        theme === "dark"
-                                            ? "☀️"
-                                            : "🌙"
-                                    }
-
-                                </button>
 
                                 <Link
                                     href="/login"
