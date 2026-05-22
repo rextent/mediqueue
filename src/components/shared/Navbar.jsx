@@ -14,6 +14,10 @@ import { toast }
     from "react-toastify";
 import Image from "next/image";
 
+import {
+    useTheme,
+} from "next-themes";
+
 export default function AppNavbar() {
 
     const { data: session } =
@@ -258,6 +262,35 @@ export default function AppNavbar() {
                         ) : (
 
                             <div className="flex items-center gap-2">
+
+                                <button
+
+                                    onClick={() =>
+                                        setTheme(
+                                            theme === "dark"
+                                                ? "light"
+                                                : "dark"
+                                        )
+                                    }
+
+                                    className="
+      px-4
+      py-2
+      rounded-xl
+      bg-black
+      text-white
+      dark:bg-white
+      dark:text-black
+      "
+                                >
+
+                                    {
+                                        theme === "dark"
+                                            ? "☀️"
+                                            : "🌙"
+                                    }
+
+                                </button>
 
                                 <Link
                                     href="/login"

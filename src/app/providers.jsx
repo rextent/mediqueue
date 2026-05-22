@@ -2,6 +2,28 @@
 
 import { HeroUIProvider } from "@heroui/system";
 
-export default function Providers({ children }) {
-  return <HeroUIProvider>{children}</HeroUIProvider>;
+import {
+  ThemeProvider,
+} from "next-themes";
+
+export default function Providers({
+  children,
+}) {
+
+  return (
+
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="light"
+      enableSystem={false}
+    >
+
+      <HeroUIProvider>
+
+        {children}
+
+      </HeroUIProvider>
+
+    </ThemeProvider>
+  );
 }
