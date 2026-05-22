@@ -80,7 +80,16 @@ export default function AppNavbar() {
 
     return (
 
-        <div className="sticky top-0 z-50 border-b border-gray-100 bg-white/90 backdrop-blur-lg">
+        <div className="sticky
+top-0
+z-50
+border-b
+border-gray-100
+bg-white/90
+backdrop-blur-lg
+
+dark:border-slate-800
+dark:bg-slate-950/90">
 
             <div className="navbar mx-auto h-[78px] w-full max-w-[1400px] px-4 lg:px-8">
 
@@ -101,7 +110,21 @@ export default function AppNavbar() {
 
                         <ul
                             tabIndex={0}
-                            className="menu dropdown-content z-[100] mt-3 w-64 rounded-3xl border border-gray-100 bg-white p-4 shadow-2xl"
+                            className="menu
+dropdown-content
+z-[100]
+mt-3
+w-64
+rounded-3xl
+border
+border-gray-100
+bg-white
+p-4
+shadow-2xl
+
+dark:border-slate-700
+dark:bg-slate-900
+dark:text-white"
                         >
 
                             {navLinks}
@@ -124,13 +147,29 @@ export default function AppNavbar() {
 
                         <div className="min-w-0 leading-tight">
 
-                            <h1 className="max-w-[125px] overflow-hidden text-ellipsis whitespace-nowrap font-heading text-xl font-bold text-slate-900 sm:max-w-full sm:text-[34px]">
+                            <h1 className="max-w-[125px]
+overflow-hidden
+text-ellipsis
+whitespace-nowrap
+font-heading
+text-xl
+font-bold
+text-slate-900
+sm:max-w-full
+sm:text-[34px]
+
+dark:text-white">
 
                                 MediQueue
 
                             </h1>
 
-                            <p className="hidden text-xs text-gray-500 sm:block">
+                            <p className="hidden
+text-xs
+text-gray-500
+sm:block
+
+dark:text-gray-400">
 
                                 Tutor Booking Platform
 
@@ -145,7 +184,17 @@ export default function AppNavbar() {
                 {/* CENTER */}
                 <div className="navbar-center hidden flex-[1.3] justify-center lg:flex">
 
-                    <ul className="menu menu-horizontal flex-nowrap gap-1 px-1 text-[15px] font-medium text-slate-700 xl:gap-3">
+                    <ul className="menu
+menu-horizontal
+flex-nowrap
+gap-1
+px-1
+text-[15px]
+font-medium
+text-slate-700
+xl:gap-3
+
+dark:text-gray-200">
 
                         {navLinks}
 
@@ -164,7 +213,22 @@ export default function AppNavbar() {
                                 <label
                                     tabIndex={0}
 
-                                    className="flex cursor-pointer items-center gap-3 rounded-full border border-gray-200 bg-white px-3 py-2 shadow-sm transition hover:shadow-md"
+                                    className="flex
+cursor-pointer
+items-center
+gap-3
+rounded-full
+border
+border-gray-200
+bg-white
+px-3
+py-2
+shadow-sm
+transition
+hover:shadow-md
+
+dark:border-slate-700
+dark:bg-slate-900"
                                 >
 
                                     {/* IMAGE */}
@@ -188,7 +252,13 @@ export default function AppNavbar() {
                                     {/* NAME */}
                                     <div className="hidden text-left lg:block">
 
-                                        <h3 className="max-w-[140px] truncate text-sm font-semibold text-slate-900">
+                                        <h3 className="max-w-[140px]
+truncate
+text-sm
+font-semibold
+text-slate-900
+
+dark:text-white">
 
                                             {
                                                 session?.user?.name
@@ -196,7 +266,10 @@ export default function AppNavbar() {
 
                                         </h3>
 
-                                        <p className="text-xs text-gray-500">
+                                        <p className="text-xs
+text-gray-500
+
+dark:text-gray-400">
 
                                             My Account
 
@@ -235,7 +308,21 @@ export default function AppNavbar() {
                                 <ul
                                     tabIndex={0}
 
-                                    className="menu dropdown-content z-[100] mt-3 w-56 rounded-2xl border border-gray-100 bg-white p-3 shadow-xl"
+                                    className="menu
+dropdown-content
+z-[100]
+mt-3
+w-56
+rounded-2xl
+border
+border-gray-100
+bg-white
+p-3
+shadow-xl
+
+dark:border-slate-700
+dark:bg-slate-900
+dark:text-white"
                                 >
 
                                     <li>
