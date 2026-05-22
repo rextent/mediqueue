@@ -18,7 +18,14 @@ import {
     useTheme,
 } from "next-themes";
 
+
+
 export default function AppNavbar() {
+
+    const {
+        theme,
+        setTheme,
+    } = useTheme();
 
     const { data: session } =
         authClient.useSession();
@@ -273,15 +280,7 @@ export default function AppNavbar() {
                                         )
                                     }
 
-                                    className="
-      px-4
-      py-2
-      rounded-xl
-      bg-black
-      text-white
-      dark:bg-white
-      dark:text-black
-      "
+                                    className="px-4 py-2 rounded-xl bg-black text-white dark:bg-white dark:text-black"
                                 >
 
                                     {
